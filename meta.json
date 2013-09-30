@@ -1,7 +1,0 @@
-[
-    { "name" : "part", 
-        "chapters" : [ 
-          { "name" : "Chapter", "file" : "content/chapter3.markdown" }
-      ] 
-    }
-]
