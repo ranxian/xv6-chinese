@@ -16,7 +16,7 @@
 
 ---
 | 系统调用| 描述|
-|--------|
+|--------|--|
 |fork() | 创建进程|
 |exit() | 结束当前进程
 |wait() | 等待子进程结束
@@ -49,7 +49,18 @@ Shell 是一个普通的程序，它接受用户输入的命令并且执行它�
 一个进程可以调用系统调用 fork 来创建一个新的进程。`fork` 创建的新进程成为子进程，子进程的内存中的内容同创建它的进程（父进程）一样。`fork` 函数在父进程、子进程中都返回（一次调用两次返回）。对于父进程它返回子进程的 pid，对于子进程它返回0。考虑下面这段代码：
 
 ```
-int pid;pid = fork();if(pid > 0){    printf("parent: child=%d\n", pid);    pid = wait();    printf("child %d is done\n", pid); } else if(pid == 0){    printf("child: exiting\n");    exit();} else {    printf("fork error\n");}
+int pid;
+pid = fork();
+if(pid > 0){
+    printf("parent: child=%d\n", pid);
+    pid = wait();
+    printf("child %d is done\n", pid); 
+} else if(pid == 0){
+    printf("child: exiting\n");
+    exit();
+} else {
+    printf("fork error\n");
+}
 ```
 系统调用 exit 会导致调用它的进程停止运行，并且释放诸如内存和打开文件在内的资源。系统调用 wait 会返回一个一个已经退出了的当前进程的子进程，如果没有子进程退出，wait 会等候直到有一个子进程退出。在上面的例子中，下面的两行输出
 ```
@@ -64,7 +75,12 @@ parent: child 1234 is done
 
 系统调用 `exec` 将调用它的进程的内存空间替换为一个从**文件**（通常是一份可执行文件）中加载的内存空间。这份文件必须是一种特殊的格式，这种格式规定了文件的哪一部分是指令，哪一部分是数据，哪一部分是指令的开始等等。xv6 使用 ELF 文件格式，第二章将详细介绍它。`exec`接受两个参数：可执行文件名和一个字符串参数数组。举例来说：
 ```
-	char *argv[3];    argv[0] = "echo";    argv[1] = "hello";    argv[2] = 0;    exec("/bin/echo", argv);    printf("exec error\n");
+	char *argv[3];
+    argv[0] = "echo";
+    argv[1] = "hello";
+    argv[2] = 0;
+    exec("/bin/echo", argv);
+    printf("exec error\n");
 ```
 这段代码将调用程序替换为 `/bin/echo` 这个程序，这个程序的参数列表为`echo hello`。大部分的程序都忽略第一个参数，这个参数惯例上是程序的名字（此例是 echo）。
 
