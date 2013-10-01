@@ -49,16 +49,16 @@ Shell 是一个普通的程序，它接受用户输入的命令并且执行它�
 
 ```
 int pid;
-pid = fork();
-if(pid > 0){
-    printf("parent: child=%d\n", pid);
-    pid = wait();
-    printf("child %d is done\n", pid); 
-} else if(pid == 0){
-    printf("child: exiting\n");
-    exit();
-} else {
-    printf("fork error\n");
+     pid = fork();
+     if(pid > 0){
+       printf("parent: child=%d\n", pid);
+       pid = wait();
+       printf("child %d is done\n", pid);
+     } else if(pid == 0){
+       printf("child: exiting\n");
+       exit();
+     } else {
+       printf("fork error\n");
 }
 ```
 系统调用 exit 会导致调用它的进程停止运行，并且释放诸如内存和打开文件在内的资源。系统调用 wait 会返回一个一个已经退出了的当前进程的子进程，如果没有子进程退出，wait 会等候直到有一个子进程退出。在上面的例子中，下面的两行输出
@@ -66,25 +66,4 @@ if(pid > 0){
 parent: child=1234
 child: exiting
 ```
-可能以任意顺序被打印，这种顺序由父进程或子进程谁先结束 printf 决定。当子进程退出时，父进程的 `wait`也就返回了，于是夫进程打印：
-```
-parent: child 1234 is done
-```
-需要留意的是父子进程拥有不同的内存空间和寄存器，改变一个进程的变量不会影响另一个进程。
-
-系统调用 `exec` 将调用它的进程的内存空间替换为一个从**文件**（通常是一份可执行文件）中加载的内存空间。这份文件必须是一种特殊的格式，这种格式规定了文件的哪一部分是指令，哪一部分是数据，哪一部分是指令的开始等等。xv6 使用 ELF 文件格式，第二章将详细介绍它。`exec`接受两个参数：可执行文件名和一个字符串参数数组。举例来说：
-```
-	char *argv[3];
-    argv[0] = "echo";
-    argv[1] = "hello";
-    argv[2] = 0;
-    exec("/bin/echo", argv);
-    printf("exec error\n");
-```
-这段代码将调用程序替换为 `/bin/echo` 这个程序，这个程序的参数列表为`echo hello`。大部分的程序都忽略第一个参数，这个参数惯例上是程序的名字（此例是 echo）。
-
-xv6 shell 用以上的调用代替用户执行程序。shell 的主要结构是很简单的，你可以阅读 main 的代码，在第 8001 行。主循环通过`getcmd`读取命令行的输入，然后它调用 `fork`生成一个 shell 程序的副本。父 shell 调用 wait，而子进程执行用户命令。举例来说，用户在命令行输入`echo hello`，`runcmd`会运行真正的 `echo hello`(`/bin/echo hello`)。如果`exec`成功执行，子进程就会执行`echo`的指令而非 runcmd 的指令。在某个时刻`echo`会调用`exit`，这会使得主进程从`wait`返回。你可能会疑惑为什么`fork`和`exec`为什么没有被合并成一个调用，我们之后将会发现，将创建进程——加载程序分为两个过程是一个非常机智的设计。
-
-xv6通常隐式地分配用户的内存空间。`fork`分配子进程需要的父进程的内存拷贝，`exec`分配足够的内存用于装载一份可执行文件。一个在运行时需要额外内存的进程可以通过调用`sbrk(n)`来增加 n 字节的数据内存。`sbrk`返回新的内存的地址。
-
-xv6 没有用户，按照 Unix 的术语来说，所有的 xv6 进程都以 root 用户执行。
+可能以任意顺序被打印
