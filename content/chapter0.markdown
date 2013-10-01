@@ -66,7 +66,7 @@ if(pid > 0){
 parent: child=1234
 child: exiting
 ```
-可能以任意顺序被打印，这种顺序由父进程或子进程谁先结束 printf 决定。当子进程退出时，父进程的 `wait`也就返回了，于是夫进程打印：
+可能以任意顺序被打印，这种顺序由父进程或子进程谁先结束 printf 决定。当子进程退出时，父进程的 `wait`也就返回了，于是父进程打印：
 ```
 parent: child 1234 is done
 ```
@@ -74,12 +74,12 @@ parent: child 1234 is done
 
 系统调用 `exec` 将调用它的进程的内存空间替换为一个从**文件**（通常是一份可执行文件）中加载的内存空间。这份文件必须是一种特殊的格式，这种格式规定了文件的哪一部分是指令，哪一部分是数据，哪一部分是指令的开始等等。xv6 使用 ELF 文件格式，第二章将详细介绍它。`exec`接受两个参数：可执行文件名和一个字符串参数数组。举例来说：
 ```
-	char *argv[3];
-    argv[0] = "echo";
-    argv[1] = "hello";
-    argv[2] = 0;
-    exec("/bin/echo", argv);
-    printf("exec error\n");
+char *argv[3];
+argv[0] = "echo";
+argv[1] = "hello";
+argv[2] = 0;
+exec("/bin/echo", argv);
+printf("exec error\n");
 ```
 这段代码将调用程序替换为 `/bin/echo` 这个程序，这个程序的参数列表为`echo hello`。大部分的程序都忽略第一个参数，这个参数惯例上是程序的名字（此例是 echo）。
 
