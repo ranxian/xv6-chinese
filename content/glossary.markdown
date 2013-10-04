@@ -44,6 +44,9 @@
 
 | 英文 | 中文 |
 |------|------|
+|page table | 页表|
+|page table entry | 页表条目|
+|paging hardwre | 分页硬件|
 |pipe | 通道|
 |pre-arranged | 预定义|
 
