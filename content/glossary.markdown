@@ -15,6 +15,8 @@
 |boot loader | boot loader|
 
 ##c
+| 英文 | 中文 |
+| console | 控制台 |
 
 ##d
 
