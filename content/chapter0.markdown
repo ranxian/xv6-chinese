@@ -170,6 +170,85 @@ write(fd, "world\n", 6);
 接下来的示例代码运行了程序 wc，它的标准输出绑定到了一个通道的读端口。
 
 ```
-int p[2];char *argv[2];argv[0] = "wc";argv[1] = 0;pipe(p);if(fork() == 0) {	close(0);	dup(p[0]);	close(p[0]);	close(p[1]);	exec("/bin/wc", argv);} else {	write(p[1], "hello world\n", 12);	close(p[0]);	close(p[1]);}
+int p[2];
+char *argv[2];
+argv[0] = "wc";
+argv[1] = 0;
+pipe(p);
+if(fork() == 0) {
+	close(0);
+	dup(p[0]);
+	close(p[0]);
+	close(p[1]);
+	exec("/bin/wc", argv);
+} else {
+	write(p[1], "hello world\n", 12);
+	close(p[0]);
+	close(p[1]);
+}
 ```
-这段程序调用 pipe，创建一个新的 pipe 并且将读写描述符记录在数组中。在 fork 之后，
+这段程序调用 pipe，创建一个新的 pipe 并且将读写描述符记录在数组 p 中。在 fork 之后，父进程和子进程都有了指向 pipe 的文件描述符。子进程将 pipe 的读端口拷贝在描述符 0 上，关闭 p 中的描述符，然后执行 wc。当 wc 从标准输入读取时，它实际上是从 pipe 读取的。父进程向 pipe 的写端口写入然后关闭它的两个文件描述符。
+
+如果数据没有准备好，那么读一个 pipe 会一直等待，直到有数据了或者其他绑定在这个 pipe 写端口的描述符都已经关闭了。在后一种情况中，read 会返回 0，就像是一份文件读到了最后。读操作会一直阻塞直到不可能再有新数据到来了，这就是为什么我们在执行 wc 之前要关闭子进程的写端口。如果 wc 指向了一个 pipe 的写端口，那么 wc 就永远看不到 eof 了。
+
+xv6 shell 对管道的实现（比如 fork sh.c | wc -l）和上面的描述是类似的。子进程创建一个pipe 连接管道的左右两端。然后它为管道左右两端都调用 runcmd，然后通过两次 wait 等待左右两端结束。管道右端可能也是一个带有 pipe 的指令，如 a |b | c, 它 fork 两个新的子进程（一个 b 一个 c），因此，shell 可能创建出一颗进程树。树的叶子节点是命令，中间节点是一个进程，它等待左子和右子结束。但做的如此精确会使得实现变得很复杂。
+
+pipe 可能看上去和临时文件没有什么两样：
+命令 echo hello world | wc 
+可以用无 pipe 的方式实现：
+echo hello world > /tmp/xyz; wc < /tmp/xyz
+
+但 pipe 和临时文件起码有三个关键的不同点。首先，pipe 会进行自我清扫，如果是 shell 重定向的话，我们必须要在任务完成后删除 /tmp/xyz。第二，pipe 可以传输任意长度的数据。第三，pipe 允许同步：两个进程恩可以使用一对 pipe 来进行二者之间的信息传递，每一个读操作都阻塞调用进程，直到另一个进程用 write 发送数据。
+
+### 文件系统
+
+xv6 文件系统提供文件和目录，文件就是一个简单的字节数组，而目录包含指向文件和其他目录的引用。xv6把目录实现为一种特殊的文件。目录是一棵树，它的根节点是一个特殊的目录 root。/a/b/c 指向一个在目录 b 中的文件 c，而 b 本身又是在目录 a 中的，a 又是处在 root 目录下的。不从 / 开始的目录表示的是相对调用进程当前目录的目录，调用进程的当前目录可以通过 chdir 这个系统调用变化。下面的这些代码都打开同一个文件（假设所有涉及到的目录都是存在的）。
+
+```
+chdir("/a");
+chdir("b");
+open("c", O_RDONLY);
+
+open("/a/b/c", O_RDONLY);
+```
+
+第一个代码段将当前目录切换到 /a/b; 第二个代码片段则对当前目录不做任何改变。
+
+有很多的系统调用可以创建一个新的文件或者目录：mkdir 创建一个新的目录，open 加上 O_CREATE 标志打开一个新的文件，mknod 创建一个新的设备文件。下面这个例子说明了这 3 种调用：
+
+```
+mkdir("/dir");
+fd = open("/dir/file", O_CREATE|O_WRONGLY);
+close(fd);
+mknod("/console", 1, 1);
+```
+mknode 在文件系统中创建一个文件，但是这个文件没有任何内容。相反，这个文件的元信息标志它是一个设备文件，并且记录主设备号和辅设备号（mknode 的两个参数），这两个设备号唯一确定一个内核设备。当一个进程之后打开这个文件的时候，内核将读、写的系统调用转发到内核设备的实现上，而不是传递给文件系统。
+
+fstat 可以获取一个文件描述符指向的文件的信息。它填充一个名为 stat 的结构体，它在 stat.h 中定义为：
+
+```
+#define T_DIR  1
+#define T_FILE 2
+#define T_DEV  3
+// Directory
+// File
+// Device
+     struct stat {
+       short type;  // Type of file
+       int dev;     // File system’s disk device
+       uint ino;    // Inode number
+       short nlink; // Number of links to file
+       uint size;   // Size of file in bytes
+};
+```
+
+文件名和这个文件本身是有很大的区别。同一个文件（称为 inode）可能有多个名字，称为连接。系统调用 link 创建另一个文件系统的名称，它指向同一个 inode。下面的代码创建了一个既叫做 a 又叫做 b 的新文件。
+
+```
+open("a", O_CREATE|O_WRONGLY);
+link("a", "b");
+```
+
+读写 a 就相当于读写 b。每一个 inode 都由一个 inode 号直接确定。在上面这段代码中，我们可以通过 fstat 知道 a 和 b 都指向同样的内容：a 和 b 都会返回同样的 ino，并且 nlink 数会设置为 2。
+
+系统调用 unlink 从文件系统移除一个文件名。一个文件的 inode 和磁盘空间只有当它的链接数变为 0 的时候才会被清空，也就是没有一个文件再指向它。因此在上面的代码最后加上 unlink("a")，我们同样可以通过 b 访问到它
