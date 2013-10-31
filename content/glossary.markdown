@@ -20,6 +20,7 @@
 |------|------|
 |console | 控制台|
 |context | 上下文|
+|coroutine | 共行程序|
 
 ##d
 
@@ -61,6 +62,10 @@
 
 ##m
 
+| 英文 | 中文 |
+|------|------|
+|multiplex | 多道处理|
+
 ##n
 
 ##o
@@ -72,6 +77,7 @@
 |page table | 页表|
 |page table entry | 页表条目|
 |paging hardwre | 分页硬件|
+|per-cpu | per-cpu|
 |pipe | 通道|
 |pre-arranged | 预定义|
 
