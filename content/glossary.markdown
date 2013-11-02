@@ -18,6 +18,7 @@
 ##c
 | 英文 | 中文 |
 |------|------|
+|multiplex | 多路复用|
 |console | 控制台|
 |context | 上下文|
 |coroutine | 共行程序|
