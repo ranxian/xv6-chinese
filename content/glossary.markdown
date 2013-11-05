@@ -18,7 +18,7 @@
 ##c
 | 英文 | 中文 |
 |------|------|
-|multiplex | 多路复用|
+|(sleep/wakeup) channel | (睡眠/唤醒)队列|
 |console | 控制台|
 |context | 上下文|
 |coroutine | 共行程序|
@@ -65,7 +65,7 @@
 
 | 英文 | 中文 |
 |------|------|
-|multiplex | 多道处理|
+|multiplex | 多路复用|
 
 ##n
 
