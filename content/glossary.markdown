@@ -21,6 +21,7 @@
 |(sleep/wakeup) channel | (睡眠/唤醒)队列|
 |console | 控制台|
 |context | 上下文|
+|convoy | 护航|
 |coroutine | 共行程序|
 
 ##d
@@ -61,6 +62,10 @@
 
 ##l
 
+| 英文 | 中文 |
+|------|------|
+|lost wakeup | 丢失的唤醒|
+
 ##m
 
 | 英文 | 中文 |
@@ -89,11 +94,13 @@
 | 英文 | 中文 |
 |------|------|
 |real world | 现实情况|
+|rendezvous point | 集合点|
 
 ##s
 
 | 英文 | 中文 |
 |------|------|
+|semaphore | 信号量|
 |shell | shell|
 |system call | 系统调用|
 
@@ -101,9 +108,14 @@
 
 | 英文 | 中文 |
 |------|------|
+|thundering herd | 惊群|
 |time-sharing | 分时|
 
 ##u
+
+| 英文 | 中文 |
+|------|------|
+|unwind (stack) | 展开（栈）|
 
 ##v
 
