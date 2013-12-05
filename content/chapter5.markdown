@@ -91,7 +91,7 @@ xv6 必须为进程提供互相协作的方法。譬如，父进程需要等待�
     208    }
     209    
     210    void*
-    211    recv(stiruct q *q)
+    211    recv(struct q *q)
     212    {
     213        void *p;
     214
