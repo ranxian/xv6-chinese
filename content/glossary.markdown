@@ -64,6 +64,7 @@
 
 | 英文 | 中文 |
 |------|------|
+|logical address | 逻辑地址|
 |lost wakeup | 丢失的唤醒|
 
 ##m
@@ -100,6 +101,7 @@
 
 | 英文 | 中文 |
 |------|------|
+|segment hardware | 分段硬件|
 |semaphore | 信号量|
 |shell | shell|
 |system call | 系统调用|
