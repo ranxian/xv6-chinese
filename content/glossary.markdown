@@ -51,7 +51,9 @@
 |hardware privilege | 硬件特权|
 
 ##i
-
+| 英文 | 中文 |
+| ---
+| inode | i节点 |
 ##j
 
 ##k
