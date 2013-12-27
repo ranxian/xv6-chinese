@@ -94,6 +94,7 @@
 |per-cpu | per-cpu|
 |pipe | 通道|
 |pre-arranged | 预定义|
+|previlege level | 特权级 |
 
 ##q
 
