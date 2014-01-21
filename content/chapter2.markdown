@@ -79,7 +79,7 @@ _init:    file format elf32-i386
 
 Program Header:
     LOAD off    0x00000054 vaddr 0x00000000 paddr 0x00000000 align 2**2
-            filesz 0x000008c0 memsz 0x000008cc flags 
+         filesz 0x000008c0 memsz 0x000008cc flags 
 ```
              
 程序段头中的 `filesz` 可能比 `memsz` 小，这表示中间相差的地方应该用0填充（对于 C 的全局变量）而不是继续从文件中读数据。对于 `/init`，`filesz` 是2240字节而 `memsz` 是2252字节。所以 `allocuvm` 会分配足够的内存来装2252字节的内容，但只从文件 `/init` 中读取2240字节的内容。
