@@ -13,8 +13,8 @@
 
 | 英文 | 中文 |
 |------|------|
-|boot loader | boot loader|
-| buffer cache | 缓冲器告诉缓存，块缓冲
+|boot loader | 引导加载器 |
+| buffer cache | 缓冲器高速缓存，块缓冲 |
 
 ##c
 | 英文 | 中文 |
