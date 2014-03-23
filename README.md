@@ -3,6 +3,8 @@ xv6-chinese
 
 中文版的 MIT xv6 文档
 
+[原文在此](http://pdos.csail.mit.edu/6.828/2012/xv6/book-rev7.pdf)
+
 译者：
 
 鲜染 北京大学 信息科学技术学院 计算机系
