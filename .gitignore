@@ -1,3 +1,5 @@
+_site
+
 output.*
 .DS_Store
 *.pdf
