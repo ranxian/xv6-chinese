@@ -1,0 +1,15 @@
+---
+layout: default
+title: "Xv6 汉化文档"
+homepage: https://github.com/ZephyrSL/xv6-chinese
+---
+
+<div id="home">
+  <h1>目录</h1>
+  <ul class="posts">
+    {% assign sorted_pages = site.posts | sort:"title" %}
+    {% for post in sorted_pages %}
+      <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>

@@ -1,0 +1,4 @@
+name:         Xv6文档中文版
+markdown:     kramdown
+pygments:     true
+baseurl:      /xv6-chinese
