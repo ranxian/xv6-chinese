@@ -17,6 +17,7 @@
 | buffer cache | 缓冲器高速缓存，块缓冲 |
 
 ##c
+
 | 英文 | 中文 |
 |------|------|
 |(sleep/wakeup) channel | (睡眠/唤醒)队列|
@@ -52,9 +53,11 @@
 |hardware privilege | 硬件特权|
 
 ##i
+
 | 英文 | 中文 |
 | ---
 | inode | i 节点 |
+
 ##j
 
 ##k
@@ -85,6 +88,7 @@
 | ---
 | on-disk | 磁盘上
 | in-memory | 内存中
+
 ##p
 
 | 英文 | 中文 |
