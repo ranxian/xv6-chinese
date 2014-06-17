@@ -1,0 +1,442 @@
+<!DOCTYPE HTML>
+<html lang="en-US" manifest="../manifest.appcache">
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <title>第一章 第一个进程 | xv6-chinese</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 0.5.3">
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    
+    
+    <meta name="author" content="Th0ar">
+    
+    
+    <link rel="next" href="../content/chapter2.html" />
+    
+    
+    <link rel="prev" href="../content/chapter0.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+<link rel="stylesheet" href="../gitbook/style.css">
+
+
+        
+    <div class="book" data-github="Th0ar/xv6-chinese" data-level="4" data-basepath=".." data-revision="1403017352815">
+    <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
+    
+    <a href="https://github.com/Th0ar/xv6-chinese" target="_blank" class="btn pull-left home-bookmark" aria-label="GitHub home"><i class="fa fa-bookmark-o"></i></a>
+    
+    <a href="#" class="btn pull-left toggle-search" aria-label="Toggle search"><i class="fa fa-search"></i></a>
+    <span id="font-settings-wrapper">
+        <a href="#" class="btn pull-left toggle-font-settings" aria-label="Toggle font settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="btn-group btn-block">
+        <button id="reduce-font-size" class="btn btn-default">A</button>
+        <button id="enlarge-font-size" class="btn btn-default">A</button>
+    </div>
+
+    <ul class="list-group font-family-list">
+        <li class="list-group-item" data-font="0">Serif</li>
+        <li class="list-group-item" data-font="1">Sans</li>
+    </ul>
+
+    <div class="btn-group btn-group-xs btn-block color-theme-list">
+        <button type="button" class="btn btn-default" id="color-theme-preview-0" data-theme="0">White</button>
+        <button type="button" class="btn btn-default" id="color-theme-preview-1" data-theme="1">Sepia</button>
+        <button type="button" class="btn btn-default" id="color-theme-preview-2" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </span>
+
+    <!-- Actions Right -->
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Share on Google Plus"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Share on Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Share on Twitter"><i class="fa fa-twitter"></i></a>
+    
+
+    
+    <a href="https://github.com/Th0ar/xv6-chinese/stargazers" target="_blank" class="btn pull-right count-star hidden-xs"><i class="fa fa-star-o"></i> Star (<span>-</span>)</a>
+    <a href="https://github.com/Th0ar/xv6-chinese/watchers" target="_blank" class="btn pull-right count-watch hidden-xs"><i class="fa fa-eye"></i> Watch (<span>-</span>)</a>
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-spinner fa-spin"></i>
+        <a href="../" >xv6-chinese</a>
+    </h1>
+</div>
+
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+        <li>
+            <a href="https://github.com/Th0ar" target="blank" class="author-link">About the author</a>
+        </li>
+        
+
+        
+        
+        <li>
+            <a href="https://github.com/Th0ar/xv6-chinese/issues" target="blank"class="issues-link">Questions and Issues</a>
+        </li>
+        
+
+        
+        
+        <li>
+            <a href="https://github.com/Th0ar/xv6-chinese/edit/master/content/chapter1.md" target="blank" class="contribute-link">Edit and Contribute</a>
+        </li>
+        
+
+        
+        <li class="divider"></li>
+        
+
+        <li data-level="0" data-path="index.html">
+            <a href="../"><i class="fa fa-check"></i> Introduction</a>
+        </li>
+        
+    
+        
+        <li class="chapter " data-level="1" data-path="content/cover.html">
+            
+                
+                    <a href="../content/cover.html">
+                        <i class="fa fa-check"></i> <b>1.</b> 封面
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="2" data-path="content/preface.html">
+            
+                
+                    <a href="../content/preface.html">
+                        <i class="fa fa-check"></i> <b>2.</b> 前言
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="3" data-path="content/chapter0.html">
+            
+                
+                    <a href="../content/chapter0.html">
+                        <i class="fa fa-check"></i> <b>3.</b> 第零章 操作系统接口
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="4" data-path="content/chapter1.html">
+            
+                
+                    <a href="../content/chapter1.html">
+                        <i class="fa fa-check"></i> <b>4.</b> 第一章 第一个进程
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="5" data-path="content/chapter2.html">
+            
+                
+                    <a href="../content/chapter2.html">
+                        <i class="fa fa-check"></i> <b>5.</b> 第二章 页表
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="6" data-path="content/chapter3.html">
+            
+                
+                    <a href="../content/chapter3.html">
+                        <i class="fa fa-check"></i> <b>6.</b> 第三章 陷入，中断和驱动程序
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="7" data-path="content/chapter4.html">
+            
+                
+                    <a href="../content/chapter4.html">
+                        <i class="fa fa-check"></i> <b>7.</b> 第四章 锁
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="8" data-path="content/chapter5.html">
+            
+                
+                    <a href="../content/chapter5.html">
+                        <i class="fa fa-check"></i> <b>8.</b> 第五章 调度
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="9" data-path="content/chapter6.html">
+            
+                
+                    <a href="../content/chapter6.html">
+                        <i class="fa fa-check"></i> <b>9.</b> 第六章 文件系统
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="10" data-path="content/AppendixA.html">
+            
+                
+                    <a href="../content/AppendixA.html">
+                        <i class="fa fa-check"></i> <b>10.</b> 附录A PC 硬件
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="11" data-path="content/AppendixB.html">
+            
+                
+                    <a href="../content/AppendixB.html">
+                        <i class="fa fa-check"></i> <b>11.</b> 附录B 引导加载器
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="12" data-path="content/glossary.html">
+            
+                
+                    <a href="../content/glossary.html">
+                        <i class="fa fa-check"></i> <b>12.</b> 术语
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="13" data-path="content/mistakes.html">
+            
+                
+                    <a href="../content/mistakes.html">
+                        <i class="fa fa-check"></i> <b>13.</b> 勘误
+                    </a>
+                
+            
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="http://www.gitbook.io/" target="blank" class="gitbook-link">Generated using GitBook</a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="page-wrapper" tabindex="-1">
+                <div class="book-progress">
+    <div class="bar">
+        <div class="inner" style="width: 30.76923076923077%;min-width: 23.076923076923077%;"></div>
+    </div>
+    <div class="chapters">
+    
+        <a href="../index.html" title="Introduction" class="chapter done new-chapter" data-progress="0" style="left: 0%;"></a>
+    
+        <a href="../content/cover.html" title="封面" class="chapter done new-chapter" data-progress="1" style="left: 7.6923076923076925%;"></a>
+    
+        <a href="../content/preface.html" title="前言" class="chapter done new-chapter" data-progress="2" style="left: 15.384615384615385%;"></a>
+    
+        <a href="../content/chapter0.html" title="第零章 操作系统接口" class="chapter done new-chapter" data-progress="3" style="left: 23.076923076923077%;"></a>
+    
+        <a href="../content/chapter1.html" title="第一章 第一个进程" class="chapter done new-chapter" data-progress="4" style="left: 30.76923076923077%;"></a>
+    
+        <a href="../content/chapter2.html" title="第二章 页表" class="chapter  new-chapter" data-progress="5" style="left: 38.46153846153846%;"></a>
+    
+        <a href="../content/chapter3.html" title="第三章 陷入，中断和驱动程序" class="chapter  new-chapter" data-progress="6" style="left: 46.15384615384615%;"></a>
+    
+        <a href="../content/chapter4.html" title="第四章 锁" class="chapter  new-chapter" data-progress="7" style="left: 53.84615384615385%;"></a>
+    
+        <a href="../content/chapter5.html" title="第五章 调度" class="chapter  new-chapter" data-progress="8" style="left: 61.53846153846154%;"></a>
+    
+        <a href="../content/chapter6.html" title="第六章 文件系统" class="chapter  new-chapter" data-progress="9" style="left: 69.23076923076923%;"></a>
+    
+        <a href="../content/AppendixA.html" title="附录A PC 硬件" class="chapter  " data-progress="10" style="left: 76.92307692307692%;"></a>
+    
+        <a href="../content/AppendixB.html" title="附录B 引导加载器" class="chapter  " data-progress="11" style="left: 84.61538461538461%;"></a>
+    
+        <a href="../content/glossary.html" title="术语" class="chapter  " data-progress="12" style="left: 92.3076923076923%;"></a>
+    
+        <a href="../content/mistakes.html" title="勘误" class="chapter  " data-progress="13" style="left: 100%;"></a>
+    
+    </div>
+</div>
+
+                <div class="page-inner">
+                
+                    <section class="normal" id="section-gitbook_6">
+                    
+                        <h2 id="-1-">第1章</h2>
+<h3 id="-">第一个进程</h3>
+<p>本章通过第一个进程的创建，向我们解释了 xv6 是如何开始运行的，让我们得以一窥 xv6 提供的各个主要抽象概念是如何实现和交互的。xv6 尽量使用实现普通操作的代码来建立第一个进程，希望避免单独为其撰写代码。接下来的各小节中，我们将详细探索其中的奥秘。    </p>
+<p>xv6 运行在使用 Intel 80386 及其之后（即&quot;x86&quot;）的处理器的 PC 平台上，因而许多底层功能（譬如虚存的实现）是 x86 处理器专有的。本书假设读者已有些许在一些体系结构上进行机器级编程的经验。我们将在 x86 专有概念出现时，对其进行介绍。另外，附录 A 中简洁地描绘了 PC 平台的整体框架。</p>
+<h4 id="-">进程概览</h4>
+<p>进程是一个抽象概念，它让一个程序可以假设它独占一台机器。进程向程序提供“看上去”私有的，其他进程无法读写的内存系统（或地址空间），以及一颗“看上去”仅执行该程序的指令的CPU。</p>
+<p>xv6 使用页表（由硬件实现）来为每个进程提供其独有的地址空间。页表将<em>虚拟地址</em>（x86 指令所使用的地址）翻译（或说“映射”）为<em>物理地址</em>（处理器芯片向主存发送的地址）。</p>
+<p><img src="../pic/f1-1.png" alt="figure1-1"></p>
+<p>xv6 为每个进程维护了不同的页表，这样就能够合理地定义进程的地址空间了。如图表1-1所示，一片地址空间包含了从虚拟地址0开始的<em>用户内存</em>。它的地址最低处放置进程的指令，接下来则是全局变量，栈区，以及一个用户可按需拓展的“堆”区（malloc 用）。</p>
+<p>和上面提到的<em>用户内存</em>一样，内核的指令和数据也会被进程映射到每个进程的地址空间中。当进程使用系统调用时，系统调用实际上会在进程地址空间中的内核区域执行。这种设计使得内核的系统调用代码可以直接指向用户内存。最后，为了给用户留下足够的内存空间，xv6 将内核映射到了地址空间的高地址处，即从 0x80100000 开始。</p>
+<p>xv6 使用结构体 <code>struct proc</code> 来维护一个进程的状态，其中最为重要的状态是进程的页表，内核栈，当前运行状态。我们接下来会用 <code>p-&gt;xxx</code> 来指代 <code>proc</code> 结构中的元素。</p>
+<p>每个进程都有一个运行线程（或简称为<em>线程</em>）来执行进程的指令。线程可以被暂时挂起，稍后再恢复运行。系统在进程之间切换实际上就是挂起当前运行的线程，恢复另一个进程的线程。线程的大多数状态（局部变量和函数调用的返回地址）都保存在线程的栈上。</p>
+<p>每个进程都有用户栈和内核栈（<code>p-&gt;kstack</code>）。当进程运行用户指令时，只有其用户栈被使用，其内核栈则是空的。然而当进程（通过系统调用或中断）进入内核时，内核代码就在进程的内核栈中执行；进程处于内核中时，其用户栈仍然保存着数据，只是没有被频繁使用而已。进程的线程就在用户栈的使用和内核栈的使用两个状态之间不断变化。要注意内核栈是用户代码无法使用的，这样内核才能在进程的用户栈被破坏时保持运行。</p>
+<p>当进程使用系统调用时，处理器转入内核栈中，提升硬件的优先级，然后运行系统调用对应的内核代码。当系统调用完成时，又从内核空间回到用户空间：硬件降低优先级，转入用户栈，恢复执行系统调用指令后面的那条指令。线程可以在内核中“阻塞”，等待 I/O, 在 I/O 结束后再恢复运行。</p>
+<p><code>p-&gt;state</code> 指示了进程是在新建、准备运行、运行、等待 I/O 还是退出状态中。</p>
+<p><code>p-&gt;pgdir</code> 以 x86 硬件要求的格式保存了进程的页表。xv6 让分页硬件在进程运行时使用 <code>p-&gt;pgdir</code>。进程的页表还记录了保存进程内存的物理页的地址。</p>
+<h4 id="-">代码：第一个地址空间</h4>
+<p><img src="../pic/f1-2.png" alt="figure1-2"></p>
+<p>当 PC 开机时，它会对自己进行初始化然后从磁盘向内存中载入 <em>boot loader</em> 并运行之。附录 B 介绍了其具体细节。xv6 的 boot loader 把 xv6 内核从磁盘中载入并从 <code>entry</code>（1040）开始运行。xv6 的分页硬件在此时还没有开始工作；所以这时的虚拟地址是直接映射到物理地址上的。</p>
+<p>boot loader 把 xv6 内核装载到物理地址 0x100000 处。之所以没有装载到内核指令和内核数据应该出现的 0x80100000，是因为小型机器上很可能没有这么大的物理内存。而之所以在 0x100000 而不是 0x0 则是因为地址 0xa0000 到 0x100000 是属于 I/O 设备的。</p>
+<p>为了让内核的剩余部分能够运行，<code>entry</code> 的代码设置了页表，将 0x80000000（称为 <code>KERNBASE</code>（0207））开始的虚拟地址映射到物理地址 0x0 处。注意，页表经常会这样把两段不同的虚拟内存映射到相同的一段物理内存，我们将会看到更多类似的例子。</p>
+<p><code>entry</code> 中的页表的定义在 <code>main.c</code>（1311）中。我们将在第2章讨论页表的细节，这里简单地说明一下，条目0将虚拟地址 0:0x400000 映射到物理地址 0:0x400000。只要 <code>entry</code> 的代码还运行在内存的低地址处，我们就必须这样设置，但最后这个条目是会被移除的。条目960将虚拟地址的 KERNBASE:KERNBASE+0x400000 映射到物理地址 0:0x400000。这个条目将在 <code>entry</code> 的代码结束后被使用；它将内核指令和内核数据应该出现的高虚拟地址处映射到了 boot loader 实际将它们载入的低物理地址处。这个映射就限制内核的指令加代码必须在 4mb 以内。</p>
+<p>让我们回到 <code>entry</code> 中继续页表的设置工作，它将 <code>entrypgdir</code> 的物理地址载入到控制寄存器 <code>%cr3</code> 中。分页硬件必须知道 <code>entrypgdir</code> 的物理地址，因为此时它还不知道如何翻译虚拟地址；它也还没有页表。<code>entrypgdir</code> 这个符号指向内存的高地址处，但只要用宏 <code>V2P_WO</code>（0220）减去 <code>KERNBASE</code> 便可以找到其物理地址。为了让分页硬件运行起来， xv6 会设置控制寄存器 <code>%cr0</code> 中的标志位 <code>CR0_PG</code>。</p>
+<p>现在 <code>entry</code> 就要跳转到内核的 C 代码，并在内存的高地址中执行它了。首先它将栈指针 <code>%esp</code> 指向被用作栈的一段内存（1054）。所有的标志包括 <em>栈</em> 都在高地址，所以当低地址的映射被移除时，栈仍然是可用的。最后 <code>entry</code> 跳转到高地址的 <code>main</code> 代码中。我们必须使用间接跳转，否则汇编器会生成 PC 相关的直接跳转，而该跳转会运行在内存低地址处的 <code>main</code>。 <code>main</code> 不会返回，因为栈上并没有返回 PC 值。好了，现在内核已经运行在高地址处的函数 <code>main</code>（1217）中了。</p>
+<h4 id="-">代码：创建第一个进程</h4>
+<p>在 <code>main</code> 初始化了一些设备和子系统后，它通过调用 <code>userinit</code>（1239）建立了第一个进程。<code>userinit</code> 首先调用 <code>allocproc</code>。<code>allocproc</code>（2205）的工作即在页表中分配一个槽（即结构体 <code>struct proc</code>），并初始化进程的状态，为其内核线程的运行做准备。注意一点：<code>userinit</code> 会被第一个新建的进程调用，而 <code>allocproc</code> 是通用的，即不仅被第一个进程使用，也要被每个新建的进程使用。<code>allocproc</code> 会在 <code>proc</code> 的表中找到一个标记为 <code>UNUSED</code>(2211-2213)的槽位。当它找到这样一个未被使用的槽位后，<code>allocproc</code> 将其状态设置为 <code>EMBRYO</code>，使其被标记为被使用的并给这个进程一个独有的 <code>pid</code>（2201-2219）。接下来，它尝试为进程的内核线程分配内核栈。如果分配失败了，<code>allocproc</code> 会把这个槽位的状态恢复为 <code>UNUSED</code> 并返回0以标记失败。</p>
+<p><img src="../pic/f1-3.png" alt="figure1-3">
+现在 <code>allocproc</code> 必须设置新进程的内核栈，我们要注意，<code>allocproc</code> 是通用于普通的 <code>fork</code> 操作的，也是能够用于创建第一个进程的。<code>allocproc</code> 为新进程设置好一个特别的栈和一系列内核寄存器，使得进程第一次运行时会返回到用户空间。准备好的内核栈就像图表1-3展示的那样。<code>allocproc</code> 通过设置返回程序计数器的值，使得新进程的内核线程首先运行在 <code>forkret</code> 的代码中，然后返回到 <code>trapret</code>（2236-2241）中运行。</p>
+<p>内核线程会从 <code>p-&gt;context</code> 中拷贝的内容开始运行。所以我们可以通过将 <code>p-&gt;context-&gt;eip</code> 指向 <code>forkret</code> 从而让内核线程从 <code>forkret</code>（2533）的开头开始运行。这个函数会返回到那个时刻栈底的地址。<code>context switch</code>（2708）的代码把栈指针指向 <code>p-&gt;context</code> 结尾。<code>allocproc</code> 又将 <code>p-&gt;context</code> 放在栈上，并在其上方放一个指向 <code>trapret</code> 的指针；这样运行完的 <code>forkret</code> 就会返回到 <code>trapret</code> 中了。 <code>trapret</code> 接着从栈顶恢复用户寄存器然后跳转到 <code>process</code>（3027）的代码。</p>
+<p>这样的设置对于普通的 <code>fork</code> 和建立第一个进程都是适用的，虽然后一种情况进程会从用户空间的地址0处开始执行而非真正的从 <code>fork</code> 返回。</p>
+<p>我们将会在第3章看到，将控制权从用户转到内核是通过中断机制实现的，具体地说是系统调用、中断和异常。每当进程运行中要将控制权交给内核时，硬件和 xv6 的 trap entry 代码就会在进程的内核栈上保存用户寄存器。 <code>userinit</code> 把值写在新建的栈的顶部，使之就像进程是通过中断进入内核的一样（2264-2270）。所以用于从内核返回到用户代码区的通用代码也能适用于第一个进程。这些保存的值就构成了一个结构体 <code>struct trapframe</code>，其中保存的是用户寄存器。现在如图表1-3所示，进程的内核已经完全准备好了。</p>
+<p>第一个进程会先运行一个小程序（<code>initcode.S</code>（7700）），于是进程需要找到物理内存来保存这段程序。程序不仅需要被拷贝到内存中，还需要页表来指向那段内存。</p>
+<p><code>userinit</code> 调用 <code>setupkvm</code>（1737）来为进程创建一个（最初）只映射内核区的页表。我们将在第2章学习该函数的具体细节，概括地说，<code>setupkvm</code> 和 <code>userinit</code> 创建了图表1-1所示的地址空间。</p>
+<p>第一个进程内存中的初始内容是由 <code>initcode.S</code> 汇编得到的；作为建立内核的进程的一部分，链接器将这段二进制代码嵌入内核中并定义两个特殊的符号：<code>_binary_initcode_start</code> 和 <code>_binary_initcode_size</code>，表示了这段二进制码的位置和大小。<code>userinit</code> 调用 <code>inituvm</code>，分配一页物理内存，将虚拟地址0映射到那一段内存，并把二进制码拷贝到那一页中（1803）。</p>
+<p>接下来，<code>userinit</code> 把 <code>trap frame</code>（0602）设置为初始的用户模式状态：<code>%cs</code> 寄存器保存着一个段选择器， 指向段 <code>SEG_UCODE</code> 并处于特权级 <code>DPL_USER</code>（即在用户模式而非内核模式）。类似的，<code>%ds, %es, %ss</code> 的段选择器指向段 <code>SEG_UDATA</code> 并处于特权级 <code>DPL_USER</code>。<code>%eflags</code> 的 <code>FL_IF</code> 位被设置为允许硬件中断；我们将在第3章回头看这段代码。</p>
+<p>栈指针 <code>%esp</code> 被设为了进程的最大有效虚拟内存，即 <code>p-&gt;sz</code>。指令指针则指向初始化代码的入口点，即地址0。</p>
+<p>函数 <code>userinit</code> 把 <code>p-&gt;name</code> 设置为 <code>initcode</code>，这主要是为了方便调试。还要将 <code>p-&gt;cwd</code> 设置为进程当前的工作目录；我们将在第6章回过头来查看 <code>namei</code> 的细节。</p>
+<p>一旦进程初始化完毕，<code>userinit</code> 将 <code>p-&gt;state</code> 设置为 <code>RUNNABLE</code>，使进程能够被调度。</p>
+<h4 id="-">运行第一个进程</h4>
+<p>现在第一个进程的状态已经被设置好了，让我们来运行它。在 <code>main</code> 调用了 <code>userinit</code> 之后， <code>mpmain</code> 调用 <code>scheduler</code> 开始运行进程（1267）。<code>scheduler</code>（2458）会找到为一个 <code>p-&gt;state</code> 为 <code>RUNNABLE</code> 的进程 <code>initproc</code>，然后将 per-cpu 的变量 <code>proc</code> 为该进程，接着调用 <code>switchuvm</code> 通知硬件开始使用目标进程的页表（1768）。注意，由于 <code>setupkvm</code> 使得所有的进程的页表都有一份相同的映射，指向内核的代码和数据，所以当内核运行时我们改变页表是没有问题的。<code>switchuvm</code> 同时还建立了任务状态段 <code>SEG_TSS</code>，让硬件在进程的内核栈中执行系统调用与中断。我们将在第3章研究任务状态段。</p>
+<p><code>scheduler</code> 接着把进程的 <code>p-&gt;state</code> 设置为 <code>RUNNING</code>，调用 <code>swtch</code>（2708），切换上下文到目标进程的内核线程中。<code>swtch</code> 会保存当前的寄存器，并把目标内核线程中保存的寄存器（<code>proc-&gt;context</code>）载入到 x86 的硬件寄存器中，其中也包括栈指针和指令指针。当前的上下文并非是进程的，而是一个特殊的 per-cpu 调度器的上下文。所以 <code>scheduler</code> 会让 <code>swtch</code> 把当前的硬件寄存器保存在 per-cpu 的存储（<code>cpu-&gt;scheduler</code>）中，而非进程的内核线程上下文中。我们将在第5章讨论 <code>swtch</code> 的细节。最后的 <code>ret</code>（2727）指令从栈中弹出目标进程的 <code>%eip</code>，从而结束上下文切换工作。现在处理器就运行在进程 <code>p</code> 的内核栈上了。</p>
+<p><code>allocproc</code> 通过把 <code>initproc</code> 的 <code>p-&gt;context-&gt;eip</code> 设置为 <code>forkret</code> 使得 <code>ret</code> 开始执行 <code>forkret</code> 的代码。第一次被使用（就是这一次）时，<code>forkret</code>（2533）会调用一些初始化函数。注意，我们不能在 <code>main</code> 中调用它们，因为它们必须在一个拥有自己的内核栈的普通进程中运行。接下来 <code>forkret</code> 返回。由于 <code>allocproc</code> 的设计，目前栈上在 <code>p-&gt;context</code> 之后即将被弹出的字是 <code>trapret</code>，因而接下来会运行 <code>trapret</code>，此时 <code>%esp</code> 保存着 <code>p-&gt;tf</code>。<code>trapret（3027）</code>用弹出指令从 <code>trap frame</code>（0602行）中恢复寄存器，就像 <code>swtch</code> 对内核上下文的操作一样： <code>popal</code> 恢复通用寄存器，<code>popl</code> 恢复 <code>%gs，%fs，%es，%ds</code>。<code>addl</code> 跳过 <code>trapno</code> 和 <code>errcode</code> 两个数据，最后 <code>iret</code> 弹出 <code>%cs，%eip，%flags，%esp，%ss</code>。trap frame 的内容已经转移到 CPU 状态中，所以处理器会从 trap frame 中 <code>%eip</code> 的值继续执行。对于 <code>initproc</code> 来说，这个值就是虚拟地址0，即 <code>initcode.S</code> 的第一个指令。</p>
+<p>这时 <code>%eip</code> 和 <code>%esp</code> 的值为0和4096，这是进程地址空间中的虚拟地址。处理器的分页硬件会把它们翻译为物理地址。<code>allocuvm</code> 为进程建立了页表，所以现在虚拟地址0会指向为该进程分配的物理地址处。<code>allocuvm</code> 还会设置标志位 <code>PTE_U</code> 来让分页硬件允许用户代码访问内存。<code>userinit</code> 设置了 <code>%cs</code> 的低位，使得进程的用户代码运行在 CPL = 3 的情况下，这意味着用户代码只能使用带有 <code>PTE_U</code> 设置的页，而且无法修改像 <code>%cr3</code> 这样的敏感硬件寄存器。这样，处理器就受限只能使用自己的内存了。</p>
+<h4 id="-exec">第一个系统调用：exec</h4>
+<p><code>initcode.S</code> 干的第一件事是触发 <code>exec</code> 系统调用。就像我们在第0章看到的一样，<code>exec</code> 用一个新的程序来代替当前进程的内存和寄存器，但是其文件描述符、进程 id 和父进程都是不变的。</p>
+<p><code>initcode.S</code>（7708）刚开始会将 <code>$argv，$init，$0</code> 三个值推入栈中，接下来把 <code>%eax</code> 设置为 <code>SYS_exec</code> 然后执行 <code>int T_SYSCALL</code>：这样做是告诉内核运行 <code>exec</code> 这个系统调用。如果运行正常的话，<code>exec</code> 不会返回：它会运行名为 <code>$init</code> 的程序，<code>$init</code> 是一个以空字符结尾的字符串，即 <code>/init</code>（7721-7723）。如果 <code>exec</code> 失败并且返回了，<code>initcode</code> 会不断调用一个不会返回的系统调用 <code>exit</code> 。</p>
+<p>系统调用 <code>exec</code> 的参数是 <code>$init、$argv</code>。最后的<code>0</code>让这个手动构建的系统调用看起来就像普通的系统调用一样，我们会在第3章详细讨论这个问题。和之前的代码一样，xv6 努力避免为第一个进程的运行单独写一段代码，而是尽量使用通用于普通操作的代码。</p>
+<p>第2章讲了 <code>exec</code> 的具体实现，概括地讲，它会用从文件系统中获取的 <code>/init</code> 的二进制代码代替 <code>initcode</code> 的代码。现在 <code>initcode</code> 已经执行完了，进程将要运行 <code>/init</code>。 <code>init</code>（7810行）会在需要的情况下创建一个新的控制台设备文件，然后把它作为描述符0，1，2打开。接下来它将不断循环，开启控制台 shell，处理没有父进程的僵尸进程，直到 shell 退出，然后再反复。系统就这样建立起来了。</p>
+<h4 id="-">现实情况</h4>
+<p>大多操作系统都采用了进程这个概念，而大多的进程都和 xv6 的进程类似。但是真正的操作系统会利用一个显式的链表在常数时间内找到空闲的 <code>proc</code>，而不像 <code>allocproc</code> 中那样花费线性时间；xv6 使用的是朴素的线性搜索（找第一个空闲的 <code>proc</code>）。</p>
+<p>xv6 的地址空间结构有一个缺点，即无法使用超过 2GB 的物理 RAM。当然我们可以解决这个问题，不过最好的解决方法还是使用64位的机器。</p>
+<h4 id="-">练习</h4>
+<ol>
+<li><p>在 <code>swtch</code> 中设断点。用 gdb 的 <em>stepi</em> 单步调试返回到 <code>forkret</code> 的代码，然后使用 gdb 的 <em>finish</em> 继续执行到 <code>trapret</code>，然后再用 <em>stepi</em> 直到你进入虚拟地址0处的 <code>initicode</code>。</p>
+</li>
+<li><p><code>KERNBASE</code> 会限制一个进程能使用的内存量，在一台有着 4GB 内存的机器上，这可能会让人感到不悦。那么提高 <code>KERNBASE</code> 的值是否能让进程使用更多的内存呢？</p>
+</li>
+</ol>
+
+                    
+                    </section>
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../content/chapter0.html" class="navigation navigation-prev " aria-label="Previous page: 第零章 操作系统接口"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../content/chapter2.html" class="navigation navigation-next " aria-label="Next page: 第二章 页表"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/jsrepl/jsrepl.js" id="jsrepl-script"></script>
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-mathjax/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

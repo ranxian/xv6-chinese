@@ -1,0 +1,494 @@
+<!DOCTYPE HTML>
+<html lang="en-US" manifest="../manifest.appcache">
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <title>第六章 文件系统 | xv6-chinese</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 0.5.3">
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    
+    
+    <meta name="author" content="Th0ar">
+    
+    
+    <link rel="next" href="../content/AppendixA.html" />
+    
+    
+    <link rel="prev" href="../content/chapter5.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+<link rel="stylesheet" href="../gitbook/style.css">
+
+
+        
+    <div class="book" data-github="Th0ar/xv6-chinese" data-level="9" data-basepath=".." data-revision="1403017352815">
+    <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
+    
+    <a href="https://github.com/Th0ar/xv6-chinese" target="_blank" class="btn pull-left home-bookmark" aria-label="GitHub home"><i class="fa fa-bookmark-o"></i></a>
+    
+    <a href="#" class="btn pull-left toggle-search" aria-label="Toggle search"><i class="fa fa-search"></i></a>
+    <span id="font-settings-wrapper">
+        <a href="#" class="btn pull-left toggle-font-settings" aria-label="Toggle font settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="btn-group btn-block">
+        <button id="reduce-font-size" class="btn btn-default">A</button>
+        <button id="enlarge-font-size" class="btn btn-default">A</button>
+    </div>
+
+    <ul class="list-group font-family-list">
+        <li class="list-group-item" data-font="0">Serif</li>
+        <li class="list-group-item" data-font="1">Sans</li>
+    </ul>
+
+    <div class="btn-group btn-group-xs btn-block color-theme-list">
+        <button type="button" class="btn btn-default" id="color-theme-preview-0" data-theme="0">White</button>
+        <button type="button" class="btn btn-default" id="color-theme-preview-1" data-theme="1">Sepia</button>
+        <button type="button" class="btn btn-default" id="color-theme-preview-2" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </span>
+
+    <!-- Actions Right -->
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Share on Google Plus"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Share on Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Share on Twitter"><i class="fa fa-twitter"></i></a>
+    
+
+    
+    <a href="https://github.com/Th0ar/xv6-chinese/stargazers" target="_blank" class="btn pull-right count-star hidden-xs"><i class="fa fa-star-o"></i> Star (<span>-</span>)</a>
+    <a href="https://github.com/Th0ar/xv6-chinese/watchers" target="_blank" class="btn pull-right count-watch hidden-xs"><i class="fa fa-eye"></i> Watch (<span>-</span>)</a>
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-spinner fa-spin"></i>
+        <a href="../" >xv6-chinese</a>
+    </h1>
+</div>
+
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+        <li>
+            <a href="https://github.com/Th0ar" target="blank" class="author-link">About the author</a>
+        </li>
+        
+
+        
+        
+        <li>
+            <a href="https://github.com/Th0ar/xv6-chinese/issues" target="blank"class="issues-link">Questions and Issues</a>
+        </li>
+        
+
+        
+        
+        <li>
+            <a href="https://github.com/Th0ar/xv6-chinese/edit/master/content/chapter6.md" target="blank" class="contribute-link">Edit and Contribute</a>
+        </li>
+        
+
+        
+        <li class="divider"></li>
+        
+
+        <li data-level="0" data-path="index.html">
+            <a href="../"><i class="fa fa-check"></i> Introduction</a>
+        </li>
+        
+    
+        
+        <li class="chapter " data-level="1" data-path="content/cover.html">
+            
+                
+                    <a href="../content/cover.html">
+                        <i class="fa fa-check"></i> <b>1.</b> 封面
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="2" data-path="content/preface.html">
+            
+                
+                    <a href="../content/preface.html">
+                        <i class="fa fa-check"></i> <b>2.</b> 前言
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="3" data-path="content/chapter0.html">
+            
+                
+                    <a href="../content/chapter0.html">
+                        <i class="fa fa-check"></i> <b>3.</b> 第零章 操作系统接口
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="4" data-path="content/chapter1.html">
+            
+                
+                    <a href="../content/chapter1.html">
+                        <i class="fa fa-check"></i> <b>4.</b> 第一章 第一个进程
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="5" data-path="content/chapter2.html">
+            
+                
+                    <a href="../content/chapter2.html">
+                        <i class="fa fa-check"></i> <b>5.</b> 第二章 页表
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="6" data-path="content/chapter3.html">
+            
+                
+                    <a href="../content/chapter3.html">
+                        <i class="fa fa-check"></i> <b>6.</b> 第三章 陷入，中断和驱动程序
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="7" data-path="content/chapter4.html">
+            
+                
+                    <a href="../content/chapter4.html">
+                        <i class="fa fa-check"></i> <b>7.</b> 第四章 锁
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="8" data-path="content/chapter5.html">
+            
+                
+                    <a href="../content/chapter5.html">
+                        <i class="fa fa-check"></i> <b>8.</b> 第五章 调度
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="9" data-path="content/chapter6.html">
+            
+                
+                    <a href="../content/chapter6.html">
+                        <i class="fa fa-check"></i> <b>9.</b> 第六章 文件系统
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="10" data-path="content/AppendixA.html">
+            
+                
+                    <a href="../content/AppendixA.html">
+                        <i class="fa fa-check"></i> <b>10.</b> 附录A PC 硬件
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="11" data-path="content/AppendixB.html">
+            
+                
+                    <a href="../content/AppendixB.html">
+                        <i class="fa fa-check"></i> <b>11.</b> 附录B 引导加载器
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="12" data-path="content/glossary.html">
+            
+                
+                    <a href="../content/glossary.html">
+                        <i class="fa fa-check"></i> <b>12.</b> 术语
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="13" data-path="content/mistakes.html">
+            
+                
+                    <a href="../content/mistakes.html">
+                        <i class="fa fa-check"></i> <b>13.</b> 勘误
+                    </a>
+                
+            
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="http://www.gitbook.io/" target="blank" class="gitbook-link">Generated using GitBook</a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="page-wrapper" tabindex="-1">
+                <div class="book-progress">
+    <div class="bar">
+        <div class="inner" style="width: 69.23076923076923%;min-width: 61.53846153846154%;"></div>
+    </div>
+    <div class="chapters">
+    
+        <a href="../index.html" title="Introduction" class="chapter done new-chapter" data-progress="0" style="left: 0%;"></a>
+    
+        <a href="../content/cover.html" title="封面" class="chapter done new-chapter" data-progress="1" style="left: 7.6923076923076925%;"></a>
+    
+        <a href="../content/preface.html" title="前言" class="chapter done new-chapter" data-progress="2" style="left: 15.384615384615385%;"></a>
+    
+        <a href="../content/chapter0.html" title="第零章 操作系统接口" class="chapter done new-chapter" data-progress="3" style="left: 23.076923076923077%;"></a>
+    
+        <a href="../content/chapter1.html" title="第一章 第一个进程" class="chapter done new-chapter" data-progress="4" style="left: 30.76923076923077%;"></a>
+    
+        <a href="../content/chapter2.html" title="第二章 页表" class="chapter done new-chapter" data-progress="5" style="left: 38.46153846153846%;"></a>
+    
+        <a href="../content/chapter3.html" title="第三章 陷入，中断和驱动程序" class="chapter done new-chapter" data-progress="6" style="left: 46.15384615384615%;"></a>
+    
+        <a href="../content/chapter4.html" title="第四章 锁" class="chapter done new-chapter" data-progress="7" style="left: 53.84615384615385%;"></a>
+    
+        <a href="../content/chapter5.html" title="第五章 调度" class="chapter done new-chapter" data-progress="8" style="left: 61.53846153846154%;"></a>
+    
+        <a href="../content/chapter6.html" title="第六章 文件系统" class="chapter done new-chapter" data-progress="9" style="left: 69.23076923076923%;"></a>
+    
+        <a href="../content/AppendixA.html" title="附录A PC 硬件" class="chapter  " data-progress="10" style="left: 76.92307692307692%;"></a>
+    
+        <a href="../content/AppendixB.html" title="附录B 引导加载器" class="chapter  " data-progress="11" style="left: 84.61538461538461%;"></a>
+    
+        <a href="../content/glossary.html" title="术语" class="chapter  " data-progress="12" style="left: 92.3076923076923%;"></a>
+    
+        <a href="../content/mistakes.html" title="勘误" class="chapter  " data-progress="13" style="left: 100%;"></a>
+    
+    </div>
+</div>
+
+                <div class="page-inner">
+                
+                    <section class="normal" id="section-gitbook_10">
+                    
+                        <h2 id="-">第六章</h2>
+<h3 id="-">文件系统</h3>
+<p>文件系统的目的是组织和存储数据，典型的文件系统支持用户和程序间的数据共享，并提供数据<em>持久化</em>的支持（即重启之后数据仍然可用）。</p>
+<p>xv6 的文件系统中使用了类似 Unix 的文件，文件描述符，目录和路经名（请参阅第零章），并且把数据存储到一块 IDE 磁盘上（请参阅第三章）。这个文件系统解决了几大难题：</p>
+<ul>
+<li>该文件系统需要磁盘上数据结构来表示目录树和文件，记录每个文件用于存储数据的块，以及磁盘上哪些区域是空闲的。</li>
+<li>该文件系统必须支持<em>崩溃恢复</em>，也就是说，如果系统崩溃了（比如掉电了），文件系统必须保证在重启后仍能正常工作。问题在于一次系统崩溃可能打断一连串的更新操作，从而使得磁盘上的数据结构变得不一致（例如：有的块同时被标记为使用中和空闲）。</li>
+<li>不同的进程可能同时操作文件系统，要保证这种并行不会破坏文件系统的正常工作。</li>
+<li>访问磁盘比访问内存要慢几个数量级，所以文件系统必须要维护一个内存内的 cache 用于缓存常被访问的块。</li>
+</ul>
+<p>这一章的剩余内容将阐述 xv6 是如何解决这些问题的。</p>
+<h3 id="-">概述</h3>
+<p><img src="../pic/f6-1.png" alt="figure6-1"></p>
+<p>xv6 的文件系统分6层实现，如图6-1所示。最下面一层通过块缓冲读写 IDE 硬盘，它同步了对磁盘的访问，保证同时只有一个内核进程可以修改磁盘块。第二层使得更高层的接口可以将对磁盘的更新按会话打包，通过会话的方式来保证这些操作是原子操作（要么都被应用，要么都不被应用）。第三层提供无名文件，每一个这样的文件由一个 i 节点和一连串的数据块组成。第四层将目录实现为一种特殊的  i 节点，它的内容是一连串的目录项，每一个目录项包含一个文件名和对应的 i 节点。第五层提供了层次路经名（如/usr/rtm/xv6/fs.c这样的），这一层通过递归的方式来查询路径对应的文件。最后一层将许多 UNIX 的资源（如管道，设备，文件等）抽象为文件系统的接口，极大地简化了程序员的工作。</p>
+<p><img src="../pic/f6-2.png" alt="figure6-2"></p>
+<p>文件系统必须设计好在磁盘上的什么地方放置 i 节点和数据块。xv6 把磁盘划分为几个区块，如图6-2所示。文件系统不使用第0块（第0块存有 bootloader）。第1块叫做<em>超级块</em>；它包含了文件系统的元信息（如文件系统的总块数，数据块块数，i 节点数，以及日志的块数）。从第2块开始存放 i 节点，每一块能够存放多个 i 节点。接下来的块存放空闲块位图。剩下的大部分块是数据块，它们保存了文件和目录的内容。在磁盘的最后是日志块，它们是会话层的一部分，将在后面详述。</p>
+<h3 id="-">块缓冲层</h3>
+<p>块缓冲有两个任务：（1）同步对磁盘的访问，使得对于每一个块，同一时间只有一份拷贝放在内存中并且只有一个内核线程使用这份拷贝；（2）缓存常用的块以提升性能。代码参见 <code>bio.c</code>。</p>
+<p>块缓冲提供的的主要接口是 <code>bread</code> 和 <code>bwrite</code>；前者从磁盘中取出一块放入缓冲区，后者把缓冲区中的一块写到磁盘上正确的地方。当内核处理完一个缓冲块之后，需要调用 <code>brelse</code> 释放它。</p>
+<p>块缓冲仅允许最多一个内核线程引用它，以此来同步对磁盘的访问，如果一个内核线程引用了一个缓冲块，但还没有释放它，那么其他调用 <code>bread</code> 的进程就会阻塞。文件系统的更高几层正是依赖块缓冲层的同步机制来保证其正确性。</p>
+<p>块缓冲有固定数量的缓冲区，这意味着如果文件系统请求一个不在缓冲中的块，必须换出一个已经使用的缓冲区。这里的置换策略是 LRU，因为我们假设假设最近未使用的块不太可能再被使用。</p>
+<h3 id="-">代码：块缓冲</h3>
+<p>块缓冲是缓冲区的双向链表。 <code>binit</code>（1231） 会从一个静态数组 <code>buf</code> 中构建出一个有 <code>NBUF</code> 个元素的双向链表。所有对块缓冲的访问都通过链表而非静态数组。</p>
+<p>一个缓冲区有三种状态：<code>B_VALID</code> 意味着这个缓冲区拥有磁盘块的有效内容。<code>B_DIRTY</code> 意味着缓冲区的内容已经被改变并且需要写回磁盘。<code>B_BUSY</code> 意味着有某个内核线程持有这个缓冲区且尚未释放。</p>
+<p><code>bread</code>（4102） 调用 <code>bget</code> 获得指定扇区的缓冲区（4106）。如果缓冲区需要从磁盘中读出，<code>bread</code> 会在返回缓冲区前调用 <code>iderw</code>。</p>
+<p><code>bget</code>（4066）扫描缓冲区链表，通过给定的设备号和扇区号找到对应的缓冲区（4073-4084）。如果存在这样一个缓冲区，并且它还不是处于 <code>B_BUSY</code> 状态，<code>bget</code> 就会设置它的 <code>B_BUSY</code> 位并且返回。如果找到的缓冲区已经在使用中，<code>bget</code> 就会睡眠等待它被释放。当 <code>sleep</code> 返回的时候，<code>bget</code> 并不能假设这块缓冲区现在可用了，事实上，<code>sleep</code> 时释放了 <code>buf_table_lock</code>, 醒来后重新获取了它，这就不能保证 <code>b</code> 仍然是可用的缓冲区：它有可能被用来缓冲另外一个扇区。<code>bget</code> 非常无奈，只能重新扫描一次（4082），希望这次能够找到可用的缓冲区。</p>
+<p><img src="../pic/f6-3.png" alt="figure6-3"></p>
+<p>如果 <code>bget</code> 中没有那句 <code>goto</code> 语句的话，那么就可能产生图6-3中的竞争。第1个进程有一块缓冲了扇区3的缓冲区。现在另外两个进程来了，第1个进程 <code>get</code> 缓冲区3并且为之睡眠（缓冲区3使用中）。第2个进程 <code>get</code> 缓冲区4，并且也可能在同一块缓冲区上睡眠，但这次是在等待新分配的循环中睡眠的，因为已经没有空闲的缓冲区，而持有扇区3的缓冲区处于链表头，因此被重用。第一个进程释放了这块缓冲区，<code>wakeup</code> 恰巧安排进程3先运行，而后它拿到这块缓冲区后把扇区4读了进来。进程3之后也释放了缓冲区并且唤醒了进程2。如果没有 <code>goto</code> 语句的话，进程2就会在把拿到的缓冲区标记为 <code>BUSY</code> 后从 <code>bget</code> 返回，但实际上这块缓冲区装的是扇区4而不是3。这样的错误可能导致各种各样的麻烦，因为扇区3和4的内容是不同的；实际上，xv6中它们存储着 i 节点。</p>
+<p>如果所请求的扇区还未被缓冲，<code>bget</code> 必须分配一个缓冲区，可能是重用某一个缓冲区。它再次扫描缓冲区列表，寻找一块不是忙状态的块，任何这样的块都可以被拿去使用。<code>bget</code> 修改这个块的元数据来记录新的设备号和扇区号并且标记这个块为 <code>BUSY</code>，最后返回它（4091-4093）。需要注意的是，对标记位的赋值（4089-4091）不仅设置了 <code>B_BUSY</code> 位，也清除了 <code>B_VALID</code> 位和 <code>B_DIRTY</code> 位，用来保证 <code>bread</code> 会用磁盘的内容来填充缓冲区，而不是继续使用块之前的内容。</p>
+<p>因为块缓冲是用于同步的，保证任何时候对于每一个扇区都只有一块缓冲区是非常重要的，<code>bget</code> 第一个循环确认没有缓冲区已经加载了所需扇区的内容，并且在此之后 <code>bget</code> 都没有释放 <code>buf_table_lock</code>，因此 <code>bget</code> 的操作是安全的。</p>
+<p>如果所有的缓冲区都处于忙碌状态，那么就出问题了，<code>bget</code> 就会报错。不过一个更优雅的响应是进入睡眠状态，直到有一块缓冲区变为空闲状态。虽然这有可能导致死锁。</p>
+<p>一旦 <code>bread</code> 给自己的调用者返回了一块缓冲区，调用者就独占了这块缓冲区。如果调用者写了数据，他必须调用 <code>bwrite</code>（4114）在释放缓冲区之前将修改了的数据写入磁盘，<code>bwrite</code> 设置 <code>B_DIRTY</code> 位并且调用的 <code>iderw</code> 将缓冲区的内容写到磁盘。</p>
+<p>当调用者使用完了一块缓冲区，他必须调用 <code>brelse</code> 来释放它，（关于 <code>brelse</code> 这个名字，它是 <code>b-relese</code> 的缩写，它源自 Unix 并且在 BSD，Linux 和 Solaris 中被广泛使用）。<code>brelse</code>（4125）将一块缓冲区移动到链表的头部（4132-4137），清除 <code>B_BUSY</code>，唤醒睡眠在这块缓冲区上的进程。移动缓冲区的作用在于使得链表按照最近被使用的情况排序，链表中的第一块是最近被用的，最后一块是最早被用的。<code>bget</code> 中的两个循环就利用这一点：寻找已经存在的缓冲区在最坏情况下必须遍历整个链表，但是由于数据局部性，从最近使用的块开始找（从 <code>bcache.head</code> 开始，然后用 <code>next</code> 指针遍历）会大大减少扫描的时间。反之，找一块可重用的缓冲区是从链表头向前找，相当于从尾部往头部通过 <code>prev</code> 指针遍历，从而找到的就是最近不被使用的块。</p>
+<h3 id="-">日志层</h3>
+<p>文件系统设计中最有趣的问题之一就是错误恢复，产生这样的问题是因为大多数的文件系统都涉及到对磁盘多次的写操作，如果在写操作的过程当中系统崩溃了，就会使得磁盘上的文件系统处于不一致的状态中。举例来说，根据写的顺序的不同，上述错误可能会导致一个目录项指向一个空闲的 i 节点，或者产生一个已被分配但是未被引用的块。后一种情况相对来说好一些，但在前一种情况中，目录项指向了一个空闲的 i 节点，重启之后就会导致非常严重的问题。</p>
+<p>xv6 通过简单的日志系统来解决文件操作过程当中崩溃所导致的问题。一个系统调用并不直接导致对磁盘上文件系统的写操作，相反，他会把一个对磁盘写操作的描述包装成一个日志写在磁盘中。当系统调用把所有的写操作都写好了日志，它就会写一个特殊的提交记录到磁盘上，代表一次完整的操作。从那时起，系统调用就会把日志中的数据写入磁盘文件系统的数据结构中。在那些写操作都成功完成后，系统调用就会删除磁盘上的日志文件。</p>
+<p>为什么日志可以解决文件系统操作中出现的崩溃呢？如果崩溃发生在操作提交之前，那么磁盘上的日志文件就不会被标记为已完成，恢复系统的代码就会忽视它，磁盘的状态正如这个操作从未执行过一样。如果是在操作提交之后崩溃的，恢复程序会重演所有的写操作，可能会重复之前已经进行了的对磁盘文件系统的写操作。在任何一种情况下，日志文件都使得磁盘操作对于系统崩溃来说是原子操作：在恢复之后，要么所有的写操作都完成了，要么一个写操作都没有完成。</p>
+<h3 id="-">日志设计</h3>
+<p>日志存在于磁盘末端已知的固定区域。它包含了一个起始块，紧接着一连串的数据块。起始块包含了一个扇区号的数组，每一个对应于日志中的数据块，起始块还包含了日志数据块的计数。xv6 在提交后修改日志的起始块，而不是之前，并且在将日志中的数据块都拷贝到文件系统之后将数据块计数清0。提交之后，清0之前的崩溃就会导致一个非0的计数值。</p>
+<p>每一个系统调用都可能包含一个必须从头到尾原子完成的写操作序列，我们称这样的一个序列为一个会话，虽然他比数据库中的会话要简单得多。任何时候只能有一个进程在一个会话之中，其他进程必须等待当前会话中的进程结束。因此同一时刻日志最多只记录一次会话。</p>
+<p>xv6 不允许并发会话，目的是为了避免下面几种问题。假设会话 X 把一个对 i 节点的修改写入了会话中。并发的会话 Y 从同一块中读出了另一个 i 节点，更新了它，把 i 节点块写入了日志并且提交。这就会导致可怕的后果：Y 的提交导致被 X 修改过的 i 节点块被写入磁盘，而 X 此时并没有提交它的修改。如果这时候发生崩溃会使得 X 的修改只应用了一部分而不是全部，从而打破会话是原子的这一性质。有一些复杂的办法可以解决这个问题，但 xv6 直接通过不允许并行的会话来回避这个问题。</p>
+<p>xv6 允许只读的系统调用在一次会话中并发执行。i 节点锁会使得会话对只读系统调用看上去是原子性的。</p>
+<p>xv6 使用固定量的磁盘空间来保存日志。系统调用写入日志的块的总大小不能大于日志的总大小。对于大多数系统调用来说这都不是个问题，但是其中两个可能会写大量的块：<code>write</code> 和 <code>unlink</code>。写一个大文件可能会写很多的数据块、位图块，以及 i 节点块。移除对一个大文件的链接可能会写很多的位图块以及一个 i 节点块。xv6 的写系统调用将大的写操作拆分成几个小的写操作，使得被修改的块能放入日志中。<code>unlink</code> 不会导致问题因为实际上 xv6 只使用一个位图块。</p>
+<h3 id="-">代码：日志</h3>
+<p>对日志的常见使用方法像下面这样</p>
+<pre><code class="lang-C">begin_trans();
+...
+bp = bread(...);
+bp-&gt;data[...] = ...;
+log_write(bp);
+...
+commit_trans();
+</code></pre>
+<p><code>begin_trans</code>（4277） 会一直等到它独占了日志的使用权后返回。</p>
+<p><code>log_write</code>（4325） 像是 <code>bwrite</code> 的一个代理；它把块中新的内容记录到日志中，并且把块的扇区号记录在内存中。<code>log_write</code> 仍将修改后的块留在内存中的缓冲区中，因此相继的本会话中对这一块的读操作都会返回已修改的内容。<code>log_write</code> 能够知道在一次会话中对同一块进行了多次读写，并且覆盖之前同一块的日志。</p>
+<p><code>commit_trans</code>（4301） 将日志的起始块写到磁盘上，这样在这个时间点之后的系统崩溃就能够恢复，只需将磁盘中的内容用日志中的内容改写。<code>commit_trans</code> 调用 <code>install_trans</code>（4211） 来从日志中逐块的读并把他们写到文件系统中合适的地方。最后 <code>commit_trans</code> 会把日志起始块中的计数改为0，这样在下次会话之前的系统崩溃就会使得恢复代码忽略日志。</p>
+<p><code>recover_from_log</code>（4268） 在 <code>initlog</code>（4205） 中被调用，而 <code>initlog</code> 在第一个用户进程开始前的引导过程中被调用。它读取日志的起始块，如果起始块说日志中有一个提交了的会话，它就会仿照 <code>commit_trans</code> 的行为执行，从而从错误中恢复。</p>
+<p><code>filewrite</code>（5352） 中有一个使用了日志的例子：</p>
+<pre><code class="lang-C">begin_trans();
+ilock(f-&gt;ip);
+r = writei(f-&gt;ip, ...);
+iunlock(f-&gt;ip);
+commit_trans();
+</code></pre>
+<p>我们在一个用于将一次大的写操作拆分成一些会话的循环中找到了这段代码，在每一次会话中这段只会写部分块，因为日志的大小是有限固定的。对 <code>writei</code> 的调用会在一次会话中写很多的块：文件的 i 节点，一个或多个位图块，以及一些数据块。在 <code>begin_trans</code> 之后再执行 <code>ilock</code> 是一种避免死锁的办法：因为每次会话都已经有一个锁保护了，因此在持有两个锁的时候，要保证一定的加锁顺序。</p>
+<h3 id="-">代码：块分配器</h3>
+<p>文件和目录的内容存在磁盘块中，磁盘块都从一个空闲块池中分配出来。xv6 的块分配器包含一个磁盘上的空闲块位图，每个块占一个位。引导区，超级块，i 节点块和位图块的位永远都被置为有效。</p>
+<p>块分配器提供两个功能： <code>balloc</code> 分配一个新的磁盘块，<code>bfree</code> 释放一个块。<code>balloc</code>（4454） 最开始调用 <code>readsb</code> 从磁盘中读出超级块（或者从块缓冲中）到 <code>sb</code> 中。 <code>balloc</code> 会算出位图块的位置，计算的方法是计算多少块被引导区、超级块和 i 节点块占用（用 <code>BBLOCK</code>）。循环（4462）从第0块开始一直到 <code>sb.size</code>（文件系统块总数），寻找一个在位图中的位是0的块。为了提高效率，这个循环被分成两块。外层循环读位图的每一块。内层循环检查这一块中的所有 <code>BPB</code> 那么多个位。两个进程可能同时申请空闲块，这就有可能导致竞争，但事实上块缓冲只允许一个进程同时只使用一个块。</p>
+<p><code>bfree</code>（4481） 找到了空闲的块之后就会清空位图中对应的位。同样，<code>bread</code> 和 <code>brelse</code> 的块的互斥使用使得无需再特意加锁。</p>
+<h3 id="i-">i 节点</h3>
+<p><em>i 节点</em>这个术语可以有两个意思。它可以指的是磁盘上的记录文件大小、数据块扇区号的数据结构。也可以指内存中的一个 i 节点，它包含了一个磁盘上 i 节点的拷贝，以及一些内核需要的附加信息。</p>
+<p>所有的磁盘上的 i 节点都被打包在一个称为 i 节点块的连续区域中。每一个 i 节点的大小都是一样的，所以对于一个给定的数字n，很容易找到磁盘上对应的 i 节点。事实上这个给定的数字就是操作系统中 i 节点的编号。</p>
+<p>磁盘上的 i 节点由结构体 <code>dinode</code>（3676）定义。<code>type</code> 域用来区分文件、目录和特殊文件的 i 节点。如果 <code>type</code> 是0的话就意味着这是一个空闲的 i 节点。<code>nlink</code> 域用来记录指向了这一个 i 节点的目录项，这是用于判断一个 i 节点是否应该被释放的。<code>size</code> 域记录了文件的字节数。<code>addrs</code> 数组用于这个文件的数据块的块号。</p>
+<p>内核在内存中维护活动的 i 节点。结构体 <code>inode</code>（3762）是磁盘中的结构体 <code>dinode</code> 在内存中的拷贝。内核只会在有 C 指针指向一个 i 节点的时候才会把这个 i 节点保存在内存中。<code>ref</code> 域用于统计有多少个 C 指针指向它。如果 <code>ref</code> 变为0，内核就会丢掉这个 i 节点。<code>iget</code> 和 <code>iput</code> 两个函数申请和释放 i 节点指针，修改引用计数。i 节点指针可能从文件描述符产生，从当前工作目录产生，也有可能从一些内核代码如 <code>exec</code> 中产生。</p>
+<p>持有 <code>iget</code> 返回的 i 节点的指针将保证这个 i 节点会留在缓存中，不会被删掉（特别地不会被用于缓存另一个文件）。因此 <code>iget</code> 返回的指针相当一种较弱的锁，虽然它并不要求持有者真的锁上这个 i 节点。文件系统的许多部分都依赖于这个特性，一方面是为了长期地持有对 i 节点的引用（比如打开的文件和当前目录），一方面是在操纵多个 i 节点的程序中避免竞争和死锁（比如路径名查找）。</p>
+<p><code>iget</code> 返回 i 节点可能没有任何有用的内容。为了保证它持有一个磁盘上 i 节点的有效拷贝，程序必须调用<code>ilock</code>。它会锁住 i 节点（从而其他进程就无法使用它）并从磁盘中读出 i 节点的信息（如果它还没有被读出的话）。<code>iunlock</code> 释放 i 节点上的锁。把对i 节点指针的获取和 i 节点的锁分开避免了某些情况下的死锁，比如在目录查询的例子中，数个进程都可以通过 <code>iget</code> 获得一个 i 节点的 C 指针，只有一个进程可以锁住一个 i 节点。</p>
+<p>i 节点缓存只会缓存被 C 指针指向的 i 节点。它主要的工作是同步多个进程对 i 节点的访问而非缓存。如果一个 i 节点频繁被使用，块缓冲可能会把它保留在内存中，即使 i 节点缓存没有缓存它。</p>
+<h3 id="-i-">代码：i 节点</h3>
+<p>要申请一个新的 i 节点（比如创建文件的时候），xv6 会调用 <code>ialloc</code>（4603）。<code>ialloc</code> 同 <code>balloc</code> 类似：它逐块遍历磁盘上的 i 节点数据结构，寻找一个标记为空闲的 i 节点。当它找到一个时，就会把它的 <code>type</code> 修改掉（变为非0），最后调用 <code>iget</code>（4620使得它从 i 节点缓存中返回。由于每个时刻只有一个进程能访问 <code>bp</code>，<code>ialloc</code> 可以保证其他进程不会同时认为这个 i 节点是可用的并且获取到它。</p>
+<p><code>iget</code>（4654）遍历 i 节点缓存寻找一个指定设备和 i 节点号的活动中的项（<code>ip-&gt;ref &gt; 0</code>)。如果它找到一项，它就返回对这个 i 节点的引用（4663-4667）。在 <code>iget</code> 扫描的时候，它会记录扫描到的第一个空槽（4668-4669），之后如果需要可以用这个空槽来分配一个新的缓存项。</p>
+<p>调用者在读写 i 节点的元数据或内容之前必须用 <code>ilock</code>锁住 i 节点。<code>ilock</code>（4703）用一个类似的睡眠循环（这种循环在 <code>bget</code> 中见过）来等待 <code>ip-&gt;flag</code> 的 <code>I_BUSY</code> 位被清除，而后由自己再设置它（4712-4714）。一旦 <code>ilock</code> 拥有了对 i 节点的独占，他可以根据需要从磁盘中读取出 i 节点的元数据。函数 <code>iunlock</code>（4735）清除 <code>I_BUSY</code> 位并且唤醒睡眠在 <code>ilock</code> 中的其他进程。</p>
+<p><code>iput</code>（4756）释放指向 i 节点的 C 指针，实际上就是将引用计数减1。如果减到了0，那么 i 节点缓存中的这个 i 节点槽就会变为空闲状态，并且可以被另一个 i 节点重用。</p>
+<p>如果 <code>iput</code> 发现没有指针指向一个 i 节点并且也没有任何目录项指向它（不在目录中出现的一个文件），那么这个 i 节点和它关联的数据块都应该被释放。<code>iput</code>重新锁上这个 i 节点，调用 <code>itrunc</code> 来把文件截断为0字节，释放掉数据块；把 i 节点的类型设置为0（未分配）；把变化写到磁盘中；最后解锁 i 节点（4759-4771）。</p>
+<p><code>iput</code> 中对锁的使用方法值得我们研究。第一个值得研究的地方是当锁上 <code>ip</code> 的时候， <code>put</code> 简单地认为它是没有被锁过的，而非使用一个睡眠循环。这种情况是正常的，因为调用者被要求在调用 <code>iput</code> 之前解锁 <code>ip</code> ，而调用者拥有对它的唯一引用（<code>ip-&gt;ref == 1</code>)。第二个值得研究的部分是 <code>iput</code> 临时释放后又重新获取了缓存的锁（4764）。这是必要的因为 <code>itrunc</code> 和 <code>iupdate</code> 可能会在磁盘 i/o 中睡眠，但是我们必须考虑在没有锁的这段时间都发生了什么。例如，一旦 <code>iupdate</code> 结束了，磁盘上的数据结构就被标注为可用的，而并发的一个 <code>ialloc</code> 的调用就可能找到它并且重新分配它，而这一切都在 <code>iput</code> 结束之前发生。<code>ialloc</code> 会通过调用 <code>iget</code> 返回对这一块的引用，而 <code>iget</code> 此时找到了 <code>ip</code>，但看见它的 <code>I_BUSY</code> 位是设置了的，从而睡眠。现在内存中的 i 节点就和磁盘上的不同步了：<code>ialloc</code> 重新初始化了磁盘上的版本，但需要其他的调用者通过 <code>ilock</code> 来将它调入内存，可是 <code>iget</code> 因为现在的 <code>ip</code> 的 <code>I_BUSY</code> 位被设置而进入了睡眠。为了保证这件事发生，<code>iput</code> 必须在释放锁之前把 <code>I_BUSY</code> 和 <code>I_VALID</code> 位都清除，所以它将 <code>flags</code> 清零（4769）。</p>
+<h3 id="-i-">代码：i 节点内容</h3>
+<p>磁盘上的 i 节点结构，结构体 <code>dinode</code>，记录了 i 节点的大小和数据块的块号数组（见图6-4）。i 节点数据能够在<code>dinode</code> 的 <code>adddrs</code> 数组中被找到。最开始的 <code>NDIRECT</code> 个块存在于这个数组的前 <code>NDIRECT</code>个项；这些块被称作直接块。接下来的 <code>NINDIRECT</code> 个块的数据在 i 节点中列了出来但并没有直接存在 i 节点中，它们存在于一个叫做间接块的数据块中。<code>addrs</code> 数组的最后一项就是间接块的地址。因此一个文件的前 6KB（<code>NDIRECT * BSIZE</code>）个自己可以直接从 i 节点中取出，而后 64KB（<code>NINDRECT*BSIZE</code>）只能在访问了间接块后取出。在磁盘上这样保存是一种比较好的表示方法，但对于用户来说显得复杂了一些。函数 <code>bmap</code> 负责这层表示使得高层的像 <code>readi</code> 和 <code>writei</code> 这样的接口更易于编写，我们马上就会看到这一点。 <code>bmap</code> 返回 i 节点 <code>ip</code> 中的第 <code>bn</code> 个数据块，如果 <code>ip</code> 还没有这样一个数据块，<code>bmap</code> 就会分配一个。</p>
+<p><img src="../pic/f6-4.png" alt="figure6-4"></p>
+<p>函数 <code>bmap</code>（4810）从最简单的情况开始：前面的 <code>NDIRECT</code> 个块的数据就在 i 节点本身中（4815-4819）。后面的 <code>NINDIRECT</code> 个块在 <code>ip-&gt;addrs[NDIRECT]</code> 指向的间接块中（4826）。<code>bmap</code> 读出间接块然后再从正确的位置读出一个块号（4827）。如果这个块号超出了<code>NDIRECT+NINDRECT</code>，<code>bmap</code>就报错：调用者要负责不访问越界的块号。</p>
+<p>当需要的时候，<code>bmap</code> 分配块。未申请的块用块号0表示。当 <code>bmap</code>遇到0的时候，它就把它们替换为新的块号（4816-4817, 4824-4825）。</p>
+<p><code>bmap</code> 随着 i 节点的增长按需分配块，而 <code>itrunc</code> 释放它们。它把 i 节点的大小重新设置为0。<code>itrunc</code> （4856）从直接块开始释放（4862-4867），然后开始释放间接块中列出的块（4872-4875），最后释放间接块本身（4877-4878）。</p>
+<p><code>bmap</code> 使得书写需要访问 i 节点数据流的函数变得非常轻松，比如 <code>readi</code> 和 <code>writei</code>。<code>readi</code>（4902）从 i 节点中读出数据。它最开始要保证给定的偏移和读出的量没有超出文件的末尾。从超出文件末尾的地方读会直接返回错误（4913-4914），如果是读的过程当中超出了文件末尾就会返回比请求的数据量少的数据（4915-4916）（从读开始的地方到文件末尾的数据，这是所有的能返回的数据）。一个循环处理文件的每一块，从缓冲区中拷贝数据到 <code>dst</code> 中。函数 <code>writei</code>（4952）和 <code>readi</code> 几乎是一样的，只有三个不同：1) 从文件超出文件末尾的地方开始的写或者写的过程中超出文件末尾的话会增长这个文件，直到达到最大的文件大小（4965-4966）。2) 这个循环把数据写入缓冲区而非拷出缓冲区（4971）。3) 如果写操作延伸了这个文件，<code>writei</code> 必须更新它的大小（4976-4979）。</p>
+<p><code>readi</code> 和 <code>writei</code> 最初都会检查 <code>ip-&gt;type == T_DEV</code>。这是为了处理一些数据不存在文件系统中的特殊设备；我们会在文件描述符层重新回到这个问题。</p>
+<p>函数 <code>stati</code>（4423）把 i 节点的元数据拷贝到 <code>stat</code> 结构体中，这个结构体可通过系统调用 <code>stat</code> 暴露给用户程序。</p>
+<h3 id="-">代码：目录层</h3>
+<p>待译</p>
+<h3 id="-">代码：路径名</h3>
+<p>路径名查询会对每一个路径的每一个元素调用 <code>dirlookup</code>。<code>namei</code>（5189）解析 <code>path</code> 并返回对应的i 节点。函数 <code>nameiparent</code> 是一个变种；它在最后一个元素之前停止，返回上级目录的 i 节点并且把最后一个元素拷贝到 <code>name</code> 中。这两个函数都使用 <code>namex</code> 来实现。</p>
+<p><code>namex</code>（5154）会计算路径解析从什么地方开始。如果路径以反斜杠开始，解析就会从根目录开始；其他情况下则会从当前目录开始（5161）。然后它使用 <code>skipelem</code> 来依次考虑路径中的每一个部分（5163）。每一次循环迭代都必须在当前的 i 节点 <code>ip</code> 中找 <code>name</code>。循环的开始会把 <code>ip</code> 锁住，然后检查它是否确然是一个目录。如果它不是目录的话，查询就宣告失败。（锁住 <code>ip</code> 是必须的，不是因为 <code>ip-&gt;type</code> 随时有可能变（事实上它不会变），而是因为如果不调用 <code>ilock</code> 的话，<code>ip-&gt;type</code> 可能还没有从磁盘中加载出来）。如果是调用 <code>nameiparent</code> 而且这是最后一个路径元素，那么循环就直接结束了。因为最后一个路径元素已经拷贝到了 <code>name</code> 中，所以 <code>namex</code> 只需要返回解锁的 <code>ip</code>（5169-5173）。最后，循环用 <code>dirlookup</code> 寻找路径元素并且令 <code>ip=next</code>，准备下一次的循环（5174-5179）。当循环处理了每一个路径元素后，它返回 <code>ip</code>。</p>
+<h3 id="-">文件描述符层</h3>
+<p>UNIX 接口很爽的一点就是大多数的资源都可以用文件来表示，包括终端这样的设备、管道，当然，还有真正的文件。文件描述符层就是实现这种统一性的一层。</p>
+<p>xv6 给每个进程都有一个自己的打开文件表，正如我们在第零章中所见。每一个打开文件都由结构体 <code>file</code>(3750)表示，它是一个对 i 节点或者管道和文件偏移的封装。每次调用 <code>open</code> 都会创建一个新的打开文件（一个新的 <code>file</code>结构体）。如果多个进程相互独立地打开了同一个文件，不同的实例将拥有不同的 i/o 偏移。另一方面，同一个文件可以（同一个file结构体）可以在一个进程的文件表中多次出现，同时也可以在多个进程的文件表中出现。当一个进程用 <code>open</code> 打开了一个文件而后使用 <code>dup</code>，或者把这个文件和子进程共享就会导致这一点发生。对每一个打开的文件都有一个引用计数，一个文件可以被打开用于读、写或者二者。<code>readable</code>域和<code>writable</code>域记录这一点。</p>
+<p>系统中所有的打开文件都存在于一个全局的文件表 <code>ftable</code> 中。这个文件表有一个分配文件的函数（<code>filealloc</code>），有一个重复引用文件的函数（<code>filedup</code>），释放对文件引用的函数（<code>fileclose</code>），读和写文件的函数（<code>fileread</code> 和 <code>filewrite</code> ）。</p>
+<p>前三个的形式我们已经很熟悉了。<code>Filealloc</code> (5225)扫描整个文件表来寻找一个没有被引用的文件（<code>file-&gt;ref == 0</code>)并且返回一个新的引用；<code>filedup</code> (5252)增加引用计数；<code>fileclose</code> (5264)减少引用计数。当一个文件的引用计数变为0的时候，<code>fileclose</code>就会释放掉当前的管道或者i 节点（根据文件类型的不同）。</p>
+<p>函数<code>filestat</code>，<code>fileread</code>，<code>filewrite</code> 实现了对文件的 <code>stat</code>，<code>read</code>，<code>write</code> 操作。<code>filestat</code> (5302)只允许作用在 i 节点上，它通过调用 <code>stati</code> 实现。<code>fileread</code> 和 <code>filewrite</code> 检查这个操作被文件的打开属性所允许然后把执行让渡给 i 节点的实现或者管道的实现。如果这个文件代表的是一个 i 节点，<code>fileread</code>和 <code>filewrite</code> 就会把 i/o 偏移作为该操作的偏移并且往前移(5325-5326,5365-5366)。管道没有偏移这个概念。回顾一下 i 节点的函数需要调用者来处理锁(5305-5307, 5324-5327,5364-5378)。i 节点锁有一个方便的副作用那就是读写偏移会自动更新，所以同时对一个文件写并不会覆盖各自的文件，但是写的顺序是不被保证的，因此写的结果可能是交织的（在一个写操作的过程中插入了另一个写操作）。</p>
+<h3 id="-">代码：系统调用</h3>
+<p>有了底层的这些函数，大多数的系统调用的实现都是很简单的（参见 <code>sysfile.c</code>）。还有少数几个调用值得一说。</p>
+<p>函数 <code>sys_link</code> 和<code>sys_unlink</code> 修改目录文件，可能会创建或者移除对 i 节点的引用。它们是使用会话的另一个佳例。<code>sys_link</code>（5513）最开始获取自己的参数 <code>old</code> 和 <code>new</code> 两个字符串。假设 <code>old</code> 是存在的并且不是一个目录文件（5520-5530），<code>sys_link</code> 增加它的 <code>ip-&gt;nlink</code> 计数。然后 <code>sys_link</code> 调用 <code>nameiparent(new)</code> 来寻找上级目录和最终的目录元素（5536），并且创建一个目录项指向<code>old</code>的 i 节点（5539）。<code>new</code> 的上级目录必须和已有 <code>old</code> 的 i 节点在同一个设备上；i 节点号只在同一个磁盘上有意义。如果这样的错误发生了，<code>sys_link</code>必须回溯并且还原引用计数。</p>
+<p><code>sys_link</code> 为一个已有的 i 节点创建一个新的名字。而函数 <code>create</code>（5657）为一个新的 i 节点创建新名字。它是三个文件创建系统调用的综合：用 <code>O_CREATE</code> 方式 <code>open</code>一个文件创建一个新的普通文件，<code>mkdir</code> 创建一个新的目录文件，<code>mkdev</code> 创建一个新的设备文件。就像<code>sys_link</code>一样，<code>create</code> 调用 <code>nameiparent</code> 获取上级目录的 i 节点。然后调用 <code>dirlookup</code> 来检查同名文件是否已经存在（5667）。如果的确存在，<code>create</code>的行为就由它服务的系统调用所决定，<code>open</code> 和 <code>mkdir</code> 以及 <code>mkdev</code> 的语义是不同的。 如果是 <code>open</code>（<code>type==T_FILE</code>）调用的 <code>create</code> 并且按指定文件名找到的文件是一个普通文件，那么就认为打开成功，因此 <code>create</code> 中也认为是成功。在其他情况下，这就是一个错误（5672-5673）。如果文件名并不存在，<code>create</code> 就会用 <code>ialloc</code>（5676）分配一个新的 i 节点。如果新的 i 节点是一个目录，<code>create</code> 就会初始化 <code>.</code> 和 <code>..</code> 两个目录项。最后所有的数据都初始化妥当了，<code>create</code> 就可以把它连接到它的上级目录（5689）。<code>create</code>，正如 <code>sys_link</code> 一样，同时拥有两个 i 节点锁：<code>ip</code> 和 <code>dp</code> 。这不可能导致死锁，因为 i 节点 <code>ip</code> 是刚被分配的：系统中没有其他进程会持有 <code>ip</code> 的锁并且尝试锁 <code>dp</code>。</p>
+<p>使用 <code>create</code>，就能轻易地实现 <code>sys_open</code> 和 <code>sys_mkdir</code>，以及 <code>sys_mknod</code>。<code>sys_open</code> 是最复杂的，创建一个新文件只是他能做的很少一部分事。如果 <code>open</code> 以 <code>O_CREATE</code> 调用，它就会调用 <code>create</code>（5712）。否则，它就会调用 <code>namei</code>（5717）。<code>create</code> 会返回一个带锁的 i 节点，但是 <code>namei</code> 并不会，所以 <code>sys_open</code> 必须要自己锁上这个 i 节点。这样提供了一个合适的地方来检查目录只被打开用于读，而不是写。总之我们获得了一个 i 节点（不管是用 <code>create</code> 还是用 <code>namei</code>)，<code>sys_open</code> 分配了一个文件和文件描述符（5726），接着填充了这个文件（5734-5738）。我们要记住没有其他进程能够访问初始化尚未完成的文件，因为他只存在于当前进程的文件表中。</p>
+<p>第五章研究了管道的实现，在那时我们甚至还没有一个文件系统。函数 <code>sys_pipe</code> 通过管道对的方式把管道的实现和文件系统连接来。它的参数是一个指向可装入两个整数的数组指针，这个数组将用于记录两个新的文件描述符。然后它分配管道，将新的文件描述符存入这个数组中。</p>
+
+                    
+                    </section>
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../content/chapter5.html" class="navigation navigation-prev " aria-label="Previous page: 第五章 调度"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../content/AppendixA.html" class="navigation navigation-next " aria-label="Next page: 附录A PC 硬件"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/jsrepl/jsrepl.js" id="jsrepl-script"></script>
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-mathjax/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

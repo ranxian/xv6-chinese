@@ -1,0 +1,429 @@
+<!DOCTYPE HTML>
+<html lang="en-US" manifest="../manifest.appcache">
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <title>附录B 引导加载器 | xv6-chinese</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 0.5.3">
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    
+    
+    <meta name="author" content="Th0ar">
+    
+    
+    <link rel="next" href="../content/glossary.html" />
+    
+    
+    <link rel="prev" href="../content/AppendixA.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+<link rel="stylesheet" href="../gitbook/style.css">
+
+
+        
+    <div class="book" data-github="Th0ar/xv6-chinese" data-level="11" data-basepath=".." data-revision="1403017352815">
+    <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
+    
+    <a href="https://github.com/Th0ar/xv6-chinese" target="_blank" class="btn pull-left home-bookmark" aria-label="GitHub home"><i class="fa fa-bookmark-o"></i></a>
+    
+    <a href="#" class="btn pull-left toggle-search" aria-label="Toggle search"><i class="fa fa-search"></i></a>
+    <span id="font-settings-wrapper">
+        <a href="#" class="btn pull-left toggle-font-settings" aria-label="Toggle font settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="btn-group btn-block">
+        <button id="reduce-font-size" class="btn btn-default">A</button>
+        <button id="enlarge-font-size" class="btn btn-default">A</button>
+    </div>
+
+    <ul class="list-group font-family-list">
+        <li class="list-group-item" data-font="0">Serif</li>
+        <li class="list-group-item" data-font="1">Sans</li>
+    </ul>
+
+    <div class="btn-group btn-group-xs btn-block color-theme-list">
+        <button type="button" class="btn btn-default" id="color-theme-preview-0" data-theme="0">White</button>
+        <button type="button" class="btn btn-default" id="color-theme-preview-1" data-theme="1">Sepia</button>
+        <button type="button" class="btn btn-default" id="color-theme-preview-2" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </span>
+
+    <!-- Actions Right -->
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Share on Google Plus"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Share on Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Share on Twitter"><i class="fa fa-twitter"></i></a>
+    
+
+    
+    <a href="https://github.com/Th0ar/xv6-chinese/stargazers" target="_blank" class="btn pull-right count-star hidden-xs"><i class="fa fa-star-o"></i> Star (<span>-</span>)</a>
+    <a href="https://github.com/Th0ar/xv6-chinese/watchers" target="_blank" class="btn pull-right count-watch hidden-xs"><i class="fa fa-eye"></i> Watch (<span>-</span>)</a>
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-spinner fa-spin"></i>
+        <a href="../" >xv6-chinese</a>
+    </h1>
+</div>
+
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+        <li>
+            <a href="https://github.com/Th0ar" target="blank" class="author-link">About the author</a>
+        </li>
+        
+
+        
+        
+        <li>
+            <a href="https://github.com/Th0ar/xv6-chinese/issues" target="blank"class="issues-link">Questions and Issues</a>
+        </li>
+        
+
+        
+        
+        <li>
+            <a href="https://github.com/Th0ar/xv6-chinese/edit/master/content/AppendixB.md" target="blank" class="contribute-link">Edit and Contribute</a>
+        </li>
+        
+
+        
+        <li class="divider"></li>
+        
+
+        <li data-level="0" data-path="index.html">
+            <a href="../"><i class="fa fa-check"></i> Introduction</a>
+        </li>
+        
+    
+        
+        <li class="chapter " data-level="1" data-path="content/cover.html">
+            
+                
+                    <a href="../content/cover.html">
+                        <i class="fa fa-check"></i> <b>1.</b> 封面
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="2" data-path="content/preface.html">
+            
+                
+                    <a href="../content/preface.html">
+                        <i class="fa fa-check"></i> <b>2.</b> 前言
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="3" data-path="content/chapter0.html">
+            
+                
+                    <a href="../content/chapter0.html">
+                        <i class="fa fa-check"></i> <b>3.</b> 第零章 操作系统接口
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="4" data-path="content/chapter1.html">
+            
+                
+                    <a href="../content/chapter1.html">
+                        <i class="fa fa-check"></i> <b>4.</b> 第一章 第一个进程
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="5" data-path="content/chapter2.html">
+            
+                
+                    <a href="../content/chapter2.html">
+                        <i class="fa fa-check"></i> <b>5.</b> 第二章 页表
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="6" data-path="content/chapter3.html">
+            
+                
+                    <a href="../content/chapter3.html">
+                        <i class="fa fa-check"></i> <b>6.</b> 第三章 陷入，中断和驱动程序
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="7" data-path="content/chapter4.html">
+            
+                
+                    <a href="../content/chapter4.html">
+                        <i class="fa fa-check"></i> <b>7.</b> 第四章 锁
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="8" data-path="content/chapter5.html">
+            
+                
+                    <a href="../content/chapter5.html">
+                        <i class="fa fa-check"></i> <b>8.</b> 第五章 调度
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="9" data-path="content/chapter6.html">
+            
+                
+                    <a href="../content/chapter6.html">
+                        <i class="fa fa-check"></i> <b>9.</b> 第六章 文件系统
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="10" data-path="content/AppendixA.html">
+            
+                
+                    <a href="../content/AppendixA.html">
+                        <i class="fa fa-check"></i> <b>10.</b> 附录A PC 硬件
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="11" data-path="content/AppendixB.html">
+            
+                
+                    <a href="../content/AppendixB.html">
+                        <i class="fa fa-check"></i> <b>11.</b> 附录B 引导加载器
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="12" data-path="content/glossary.html">
+            
+                
+                    <a href="../content/glossary.html">
+                        <i class="fa fa-check"></i> <b>12.</b> 术语
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="13" data-path="content/mistakes.html">
+            
+                
+                    <a href="../content/mistakes.html">
+                        <i class="fa fa-check"></i> <b>13.</b> 勘误
+                    </a>
+                
+            
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="http://www.gitbook.io/" target="blank" class="gitbook-link">Generated using GitBook</a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="page-wrapper" tabindex="-1">
+                <div class="book-progress">
+    <div class="bar">
+        <div class="inner" style="width: 84.61538461538461%;min-width: 76.92307692307692%;"></div>
+    </div>
+    <div class="chapters">
+    
+        <a href="../index.html" title="Introduction" class="chapter done new-chapter" data-progress="0" style="left: 0%;"></a>
+    
+        <a href="../content/cover.html" title="封面" class="chapter done new-chapter" data-progress="1" style="left: 7.6923076923076925%;"></a>
+    
+        <a href="../content/preface.html" title="前言" class="chapter done new-chapter" data-progress="2" style="left: 15.384615384615385%;"></a>
+    
+        <a href="../content/chapter0.html" title="第零章 操作系统接口" class="chapter done new-chapter" data-progress="3" style="left: 23.076923076923077%;"></a>
+    
+        <a href="../content/chapter1.html" title="第一章 第一个进程" class="chapter done new-chapter" data-progress="4" style="left: 30.76923076923077%;"></a>
+    
+        <a href="../content/chapter2.html" title="第二章 页表" class="chapter done new-chapter" data-progress="5" style="left: 38.46153846153846%;"></a>
+    
+        <a href="../content/chapter3.html" title="第三章 陷入，中断和驱动程序" class="chapter done new-chapter" data-progress="6" style="left: 46.15384615384615%;"></a>
+    
+        <a href="../content/chapter4.html" title="第四章 锁" class="chapter done new-chapter" data-progress="7" style="left: 53.84615384615385%;"></a>
+    
+        <a href="../content/chapter5.html" title="第五章 调度" class="chapter done new-chapter" data-progress="8" style="left: 61.53846153846154%;"></a>
+    
+        <a href="../content/chapter6.html" title="第六章 文件系统" class="chapter done new-chapter" data-progress="9" style="left: 69.23076923076923%;"></a>
+    
+        <a href="../content/AppendixA.html" title="附录A PC 硬件" class="chapter done " data-progress="10" style="left: 76.92307692307692%;"></a>
+    
+        <a href="../content/AppendixB.html" title="附录B 引导加载器" class="chapter done " data-progress="11" style="left: 84.61538461538461%;"></a>
+    
+        <a href="../content/glossary.html" title="术语" class="chapter  " data-progress="12" style="left: 92.3076923076923%;"></a>
+    
+        <a href="../content/mistakes.html" title="勘误" class="chapter  " data-progress="13" style="left: 100%;"></a>
+    
+    </div>
+</div>
+
+                <div class="page-inner">
+                
+                    <section class="normal" id="section-gitbook_8">
+                    
+                        <h2 id="-b">附录 B</h2>
+<h3 id="-boot-loader-">引导加载器（boot loader）</h3>
+<p>当 x86 PC 启动时，它执行的是一个叫 BIOS 的程序。BIOS 存放在主板上的非易失性存储器中，其作用是做好硬件的准备工作，接着把控制权交给操作系统。具体来说，BIOS 会把控制权交给从引导扇区（引导磁盘第一个512字节的扇区）加载的代码。引导扇区中包含引导加载器——把内核加载到内存中的指令。BIOS 会把引导扇区加载到内存 0x7c00 处，接着（通过设置寄存器 <code>%ip</code>）跳转至该地址。引导加载器开始执行后，处理器正处于模拟 Intel 8088 处理器的模式下。而加载器的工作则是把处理器设置为现代操作模式，并从磁盘中把 xv6 内核载入到内存中，然后将控制权交给内核。xv6 引导加载包括两个源文件，一个由16位和32位汇编混合写成（<code>bootasm.S</code>；（8400）），另一个由 C 写成（<code>bootmain.c</code>；（8500））。</p>
+<h3 id="-">代码：汇编引导程序</h3>
+<p>引导加载器的第一条指令 <code>cli</code>（8412），它屏蔽处理器中断。硬件可以通过中断触发中断处理程序，从而调用操作系统的功能。BIOS 作为一个小型操作系统，为了初始化硬件设备，可能设置了自己的中断处理程序。但是现在 BIOS 已经没有了控制权，而是引导加载器正在运行，所以现在还允许中断不合理也不安全。当 xv6 准备好了后（详见第3章），它会重新允许中断。</p>
+<p>处理器正处在模拟 Intel 8088 的<em>实模式</em>下，有8个16位通用寄存器可用，但实际上处理器发送给内存的是20位的地址。这时，多出来的4位其实是由段寄存器<code>%cs, %ds, %es, %ss</code>提供的。当程序用到一个内存地址时，处理器会自动在该地址上加上某个16位段寄存器值的16倍。因此，内存引用中其实隐含着使用段寄存器的值：取指会用到 <code>%cs</code>，读写数据会用到 <code>%ds</code>，读写栈会用到 <code>%ss</code>。</p>
+<p><img src="../pic/fb-1.png" alt="figureB-1"></p>
+<p>xv6 假设 x86 指令在做内存操作时使用的是虚拟地址，但实际上 x86 指令使用的是<em>逻辑地址</em>（见表 B-1）。逻辑地址由段选择器和偏移组成，有时又被写作<em>segmemt:offset</em>。更多时候，段是隐含的，所以程序会直接使用偏移。分段硬件会完成上述处理，从而产生一个<em>线性地址</em>。如果允许分页硬件工作（见第2章），分页硬件则会把线性地址翻译为物理地址；否则处理器直接把线性地址看作物理地址。</p>
+<p>引导加载器还没有允许分页硬件工作；它通过分段硬件把逻辑地址转化为线性地址，然后直接作为物理地址使用。xv6 会配置分段硬件，使之不对逻辑地址做任何改变，直接得到线性地址，所以线性地址和逻辑地址是相等的。由于历史原因我们用<em>虚拟地址</em>这个术语来指程序操作时用的地址。xv6 的虚拟地址等于 X86 的逻辑地址，同样也等于分段硬件映射的线性地址。等到开启了分页后，系统中值得关心的地址映射只有从线性地址到物理地址的映射。</p>
+<p>BIOS 完成工作后，并不能保证 <code>%ds, %es, %ss</code> 的值是多少，所以在屏蔽中断后，引导加载器的第一个工作就是将 <code>%ax</code> 置零，然后把这个零值拷贝到三个段寄存器中（8415-8418）。</p>
+<p>虚拟地址 <em>segment:offset</em> 可以产生21位物理地址，但 Intel 8088 只能向内存传递20位地址，所以它裁剪了地址的最高位：0xffff0 + 0xffff = 0x10ffef，但在 8088 上虚拟地址 0xffff:0xffff 则是引用物理地址 0x0ffef。早期的软件依赖硬件来忽略第21位地址位，所以当 Intel 研发出使用超过20位物理地址的处理器时，IBM 就想出了 PC 兼容硬件所必须的兼容技巧。如果键盘控制器输出端口的第2位是低位，则物理地址的第21位始终被清零；否则，第21位可以正常使用。引导加载器用 I/O 指令控制端口 0x64 和 0x60 上的键盘控制器，使其输出端口的第2位为高位，来使第21个地址地址正常工作（8436）。</p>
+<p>对于使用内存超过65536字节的程序而言，实模式的16位寄存器和段寄存器就显得非常困窘了，显然更不可能使用超过 1M 字节的内存。x86 系列处理器在 80286 之后就有了<em>保护模式</em>。保护模式下可以使用更多位的地址，并且（80386之后）有了“32位”模式使得寄存器，虚拟地址和大多数的整型运算都从16位变成了32位。xv6 引导程序依次允许了保护模式和32位模式。</p>
+<p><img src="../pic/fb-2.png" alt="figureB-2"></p>
+<p>在保护模式下，段寄存器保存着<em>段描述符表</em>的索引（见图表 B-2）。每一个表项都指定了一个基物理地址，最大虚拟地址（称为限制），以及该段的权限位。这些权限位在保护模式下起着保护作用，内核可以根据它们来保证一个程序只使用属于自己的内存。</p>
+<p>xv6 几乎没有使用段；取而代之的是第2章讲述的分页。引导加载器将段描述符表 <code>gdt</code>（8482-8485）中的每个段的基址都置零，并让所有段都有相同的内存限制（4G 字节）。该表中有一个空指针表项，一个可执行代码的表项，一个数据的表项。代码段描述符的标志位中指示了代码只能在32位模式下执行（0660）。正是由于这样的设置，引导加载器在进入保护模式时，逻辑地址才会直接映射为物理地址。</p>
+<p>引导加载器执行 <code>lgdt</code>（8441）指令来把指向 <code>gdt</code> 的指针 <code>gdtdesc</code>（8487-8489）加载到全局描述符表（GDT）寄存器中。</p>
+<p>加载完毕后，引导加载器将 <code>%cr0</code> 中的 <code>CR0_PE</code> 位置为1，从而开启保护模式。允许保护模式并不会马上改变处理器把逻辑地址翻译成物理地址的过程；只有当处理器读取 GDT 地址的段寄存器的值被改变为内部段的设置后，才会发生变化。我们没法直接修改 <code>%cs</code>，所以使用了一个 <code>ljmp</code> 指令（8453），使得代码段选择器被设置。跳转指令会接着在下一行（8456）执行，但这样做实际上将 <code>%cs</code> 指向了 <code>gdt</code> 中的一个代码描述符表项。该描述符描述了一个32位代码段，这样处理器就切换到了32位模式下。就这样，引导加载器让处理器从8088进化到80286，接着进化到了80386。</p>
+<p>在32位模式下，引导加载器首先用 <code>SEG_KDATA</code>（8458-8461）初始化了数据段寄存器。逻辑地址现在是直接映射到物理地址的。在运行 C 代码之前的最后一个步骤是在空闲内存中建立一个栈。内存 0xa0000 到 0x100000 属于设备区，而 xv6 内核则应该是放在 0x100000 处。引导加载器自己是在 0x7c00 到 0x7d00。本质上来讲，内存的其他部分都能用来存放栈。引导加载器选择了 0x7c00（在该文件中即 <code>$start</code>）作为栈顶；栈从此处向下增长，直到 0x0000，不断远离引导加载器代码。</p>
+<p>最后加载器调用 C 函数 <code>bootmain</code>（8468）。<code>bootmain</code> 的工作就是加载并运行内核。只有在出错时该函数才会返回，这时它会向端口 0x8a00（8470-8476）发送数个输出字。在真实的硬件中，并没有设备连接到该端口，所以这段代码什么也没有做。如果引导加载器是在 PC 模拟器上运行，那么端口 0x8a00 则会连接到模拟器并把控制权交还给模拟器本身。无论是否使用模拟器，这段代码接下来都会执行一个死循环（8477-8478）。而一个真正的引导加载器则应该会尝试输出错误信息。</p>
+<h3 id="-c-">代码：C 引导程序</h3>
+<p>引导加载器的 C 语言部分 <code>bootmain.c</code>（8500）希望能在磁盘的第二个扇区开头找到一份可执行内核的拷贝。如我们在第2章所见，该内核是 ELF 格式的二进制文件。为了读取 ELF 头，<code>bootmain</code> 载入 ELF 文件的前4096字节（8514），并将其内存内拷贝放在地址 0x10000 处。</p>
+<p>下一步是检查是否是一个 ELF 文件，而不是一个未初始化磁盘。<code>bootmain</code> 从磁盘中 ELF 头之后 <code>off</code> 字节处读取扇区的内容，并写到内存中地址 <code>paddr</code> 处。<code>bootmain</code> 调用 <code>readseg</code> 将数据从磁盘中载入（8538），并调用 <code>stosb</code> 将段的剩余部分置零（8540）。<code>stosb</code>（0492）使用 x86 指令 <code>rep stosb</code> 来初始化内存块中的每个字节。</p>
+<p>现在内核已经被编译并链接好，我们应该能在虚拟地址 0x80100000 处找到内核。因此，函数调用指令使用的地址都是 0xf01xxxxx 的形式；你可以在 <code>kernel.asm</code> 中找到类似的例子。这个地址是在 <code>kernel.ld</code> 中设置的。0x80100000 是一个比较高的地址，差不多处在32位地址空间的尾部；至于原因，我们在第2章中对此作出了详细解释。当然，实际的物理内存中可能并没有这么高的地址。一旦内核开始运行，它会开启分页硬件来将虚拟地址 0x80100000 映射到物理地址 0x00100000（内核假设物理内存中存在该地址）。引导程序运行到现在，分页机制尚未被开启。取而代之的是，<code>kernel.ld</code> 将原本指向 0x00100000（即引导加载器拷贝内核的目的物理地址）的 ELF <code>paddr</code> 指向分页硬件最终将会指向的地方。</p>
+<p>引导加载器的最后一项工作是调用内核的入口，即内核第一条指令的执行地址。在 xv6 中入口地址即 0x10000c：</p>
+<pre><code># objdump -f kernel
+
+kernel:    file format elf32-i386
+architecture: i386, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x0010000c
+</code></pre><p>按照惯例，在 <code>entry.S</code>（1036）中定义的 <code>_start</code> 符号即 ELF 入口。由于 xv6 还没有建立虚拟内存，xv6 的入口即 <code>entry</code>（1040）的物理地址。</p>
+<h3 id="-">现实情况</h3>
+<p>该附录中谈到的引导加载器编译后大概有470字节的机器码，具体取决于编译优化。为了放入比较小的空间中，xv6 引导加载器做了一个简单的假设：内核放在引导磁盘中从扇区1开始的连续空间中。通常内核就放在普通的文件系统中，而且可能不是连续的。也有可能内核是通过网络加载的。这种复杂性就使得引导加载器必须要能够驱动各种磁盘和网络控制器，并能够解读不同的文件系统和网络原型。也就是说，引导加载器本身就已经成为了一个小操作系统。显然这样的引导加载器不可能只有512字节，大多数的 PC 操作系统的引导过程分为2步。首先，一个类似于该附录介绍的简单的引导加载器会从一个已知的磁盘位置上把完整的引导加载器加载进来，通常这步会依靠空间权限更大的 BIOS 来操作磁盘。接下来，这个超过512字节的完整加载器就有足够的能力定位、加载并执行内核了。也许在更现代的设计中，会直接用 BIOS 从磁盘中读取完整的引导加载器（并在保护模式和32位模式下启动之）。</p>
+<p>该附录假设在开机后，引导加载器运行前，唯一发生的事即 BIOS 加载引导扇区。但实际上 BIOS 会做相当多的初始化工作来确保现代计算机中结构复杂的硬件能像传统标准中的 PC 一样工作。</p>
+<h3 id="-">练习</h3>
+<ol>
+<li><p>基于扇区大小，文中提到的调用 <code>readseg</code> 的作用和 <code>readseg((uchar*)0x100000, 0xb500, 0x1000)</code> 的作用是相同的。实际上，这个草率的实现并不会导致错误。这是为什么呢？</p>
+</li>
+<li><p>一些关于 BIOS 存在时长与安全性的问题。</p>
+</li>
+<li><p>假设你希望 <code>bootmain()</code> 能把内核加载到 0x200000 而非 0x100000，于是你在 <code>bootmain()</code> 中把每个 ELF 段的 <code>va</code> 都加上了 0x100000。这样做是会导致错误发生的，请说明会发生什么错误。</p>
+</li>
+<li><p>引导加载器把 ELF 头拷贝到了一个随意的地址 0x10000 上，这样做看起来似乎有些危险。那么为什么不调用 <code>malloc</code> 来分配它所需要的空间呢？</p>
+</li>
+</ol>
+
+                    
+                    </section>
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../content/AppendixA.html" class="navigation navigation-prev " aria-label="Previous page: 附录A PC 硬件"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../content/glossary.html" class="navigation navigation-next " aria-label="Next page: 术语"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/jsrepl/jsrepl.js" id="jsrepl-script"></script>
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-mathjax/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

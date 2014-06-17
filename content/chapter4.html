@@ -1,0 +1,480 @@
+<!DOCTYPE HTML>
+<html lang="en-US" manifest="../manifest.appcache">
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <title>第四章 锁 | xv6-chinese</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 0.5.3">
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    
+    
+    <meta name="author" content="Th0ar">
+    
+    
+    <link rel="next" href="../content/chapter5.html" />
+    
+    
+    <link rel="prev" href="../content/chapter3.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+<link rel="stylesheet" href="../gitbook/style.css">
+
+
+        
+    <div class="book" data-github="Th0ar/xv6-chinese" data-level="7" data-basepath=".." data-revision="1403017352815">
+    <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
+    
+    <a href="https://github.com/Th0ar/xv6-chinese" target="_blank" class="btn pull-left home-bookmark" aria-label="GitHub home"><i class="fa fa-bookmark-o"></i></a>
+    
+    <a href="#" class="btn pull-left toggle-search" aria-label="Toggle search"><i class="fa fa-search"></i></a>
+    <span id="font-settings-wrapper">
+        <a href="#" class="btn pull-left toggle-font-settings" aria-label="Toggle font settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="btn-group btn-block">
+        <button id="reduce-font-size" class="btn btn-default">A</button>
+        <button id="enlarge-font-size" class="btn btn-default">A</button>
+    </div>
+
+    <ul class="list-group font-family-list">
+        <li class="list-group-item" data-font="0">Serif</li>
+        <li class="list-group-item" data-font="1">Sans</li>
+    </ul>
+
+    <div class="btn-group btn-group-xs btn-block color-theme-list">
+        <button type="button" class="btn btn-default" id="color-theme-preview-0" data-theme="0">White</button>
+        <button type="button" class="btn btn-default" id="color-theme-preview-1" data-theme="1">Sepia</button>
+        <button type="button" class="btn btn-default" id="color-theme-preview-2" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </span>
+
+    <!-- Actions Right -->
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Share on Google Plus"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Share on Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Share on Twitter"><i class="fa fa-twitter"></i></a>
+    
+
+    
+    <a href="https://github.com/Th0ar/xv6-chinese/stargazers" target="_blank" class="btn pull-right count-star hidden-xs"><i class="fa fa-star-o"></i> Star (<span>-</span>)</a>
+    <a href="https://github.com/Th0ar/xv6-chinese/watchers" target="_blank" class="btn pull-right count-watch hidden-xs"><i class="fa fa-eye"></i> Watch (<span>-</span>)</a>
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-spinner fa-spin"></i>
+        <a href="../" >xv6-chinese</a>
+    </h1>
+</div>
+
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+        <li>
+            <a href="https://github.com/Th0ar" target="blank" class="author-link">About the author</a>
+        </li>
+        
+
+        
+        
+        <li>
+            <a href="https://github.com/Th0ar/xv6-chinese/issues" target="blank"class="issues-link">Questions and Issues</a>
+        </li>
+        
+
+        
+        
+        <li>
+            <a href="https://github.com/Th0ar/xv6-chinese/edit/master/content/chapter4.md" target="blank" class="contribute-link">Edit and Contribute</a>
+        </li>
+        
+
+        
+        <li class="divider"></li>
+        
+
+        <li data-level="0" data-path="index.html">
+            <a href="../"><i class="fa fa-check"></i> Introduction</a>
+        </li>
+        
+    
+        
+        <li class="chapter " data-level="1" data-path="content/cover.html">
+            
+                
+                    <a href="../content/cover.html">
+                        <i class="fa fa-check"></i> <b>1.</b> 封面
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="2" data-path="content/preface.html">
+            
+                
+                    <a href="../content/preface.html">
+                        <i class="fa fa-check"></i> <b>2.</b> 前言
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="3" data-path="content/chapter0.html">
+            
+                
+                    <a href="../content/chapter0.html">
+                        <i class="fa fa-check"></i> <b>3.</b> 第零章 操作系统接口
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="4" data-path="content/chapter1.html">
+            
+                
+                    <a href="../content/chapter1.html">
+                        <i class="fa fa-check"></i> <b>4.</b> 第一章 第一个进程
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="5" data-path="content/chapter2.html">
+            
+                
+                    <a href="../content/chapter2.html">
+                        <i class="fa fa-check"></i> <b>5.</b> 第二章 页表
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="6" data-path="content/chapter3.html">
+            
+                
+                    <a href="../content/chapter3.html">
+                        <i class="fa fa-check"></i> <b>6.</b> 第三章 陷入，中断和驱动程序
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="7" data-path="content/chapter4.html">
+            
+                
+                    <a href="../content/chapter4.html">
+                        <i class="fa fa-check"></i> <b>7.</b> 第四章 锁
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="8" data-path="content/chapter5.html">
+            
+                
+                    <a href="../content/chapter5.html">
+                        <i class="fa fa-check"></i> <b>8.</b> 第五章 调度
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="9" data-path="content/chapter6.html">
+            
+                
+                    <a href="../content/chapter6.html">
+                        <i class="fa fa-check"></i> <b>9.</b> 第六章 文件系统
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="10" data-path="content/AppendixA.html">
+            
+                
+                    <a href="../content/AppendixA.html">
+                        <i class="fa fa-check"></i> <b>10.</b> 附录A PC 硬件
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="11" data-path="content/AppendixB.html">
+            
+                
+                    <a href="../content/AppendixB.html">
+                        <i class="fa fa-check"></i> <b>11.</b> 附录B 引导加载器
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="12" data-path="content/glossary.html">
+            
+                
+                    <a href="../content/glossary.html">
+                        <i class="fa fa-check"></i> <b>12.</b> 术语
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="13" data-path="content/mistakes.html">
+            
+                
+                    <a href="../content/mistakes.html">
+                        <i class="fa fa-check"></i> <b>13.</b> 勘误
+                    </a>
+                
+            
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="http://www.gitbook.io/" target="blank" class="gitbook-link">Generated using GitBook</a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="page-wrapper" tabindex="-1">
+                <div class="book-progress">
+    <div class="bar">
+        <div class="inner" style="width: 53.84615384615385%;min-width: 46.15384615384615%;"></div>
+    </div>
+    <div class="chapters">
+    
+        <a href="../index.html" title="Introduction" class="chapter done new-chapter" data-progress="0" style="left: 0%;"></a>
+    
+        <a href="../content/cover.html" title="封面" class="chapter done new-chapter" data-progress="1" style="left: 7.6923076923076925%;"></a>
+    
+        <a href="../content/preface.html" title="前言" class="chapter done new-chapter" data-progress="2" style="left: 15.384615384615385%;"></a>
+    
+        <a href="../content/chapter0.html" title="第零章 操作系统接口" class="chapter done new-chapter" data-progress="3" style="left: 23.076923076923077%;"></a>
+    
+        <a href="../content/chapter1.html" title="第一章 第一个进程" class="chapter done new-chapter" data-progress="4" style="left: 30.76923076923077%;"></a>
+    
+        <a href="../content/chapter2.html" title="第二章 页表" class="chapter done new-chapter" data-progress="5" style="left: 38.46153846153846%;"></a>
+    
+        <a href="../content/chapter3.html" title="第三章 陷入，中断和驱动程序" class="chapter done new-chapter" data-progress="6" style="left: 46.15384615384615%;"></a>
+    
+        <a href="../content/chapter4.html" title="第四章 锁" class="chapter done new-chapter" data-progress="7" style="left: 53.84615384615385%;"></a>
+    
+        <a href="../content/chapter5.html" title="第五章 调度" class="chapter  new-chapter" data-progress="8" style="left: 61.53846153846154%;"></a>
+    
+        <a href="../content/chapter6.html" title="第六章 文件系统" class="chapter  new-chapter" data-progress="9" style="left: 69.23076923076923%;"></a>
+    
+        <a href="../content/AppendixA.html" title="附录A PC 硬件" class="chapter  " data-progress="10" style="left: 76.92307692307692%;"></a>
+    
+        <a href="../content/AppendixB.html" title="附录B 引导加载器" class="chapter  " data-progress="11" style="left: 84.61538461538461%;"></a>
+    
+        <a href="../content/glossary.html" title="术语" class="chapter  " data-progress="12" style="left: 92.3076923076923%;"></a>
+    
+        <a href="../content/mistakes.html" title="勘误" class="chapter  " data-progress="13" style="left: 100%;"></a>
+    
+    </div>
+</div>
+
+                <div class="page-inner">
+                
+                    <section class="normal" id="section-gitbook_2">
+                    
+                        <h2 id="-4-">第4章</h2>
+<h3 id="-">锁</h3>
+<p>xv6 运行在多处理器上，即计算机上有多个单独执行代码的 CPU。这些 CPU 操作同一片地址空间并分享其中的数据结构；xv6 必须建立一种合作机制防止它们互相干扰。即使是在单个处理器上，xv6 也必须使用某些机制来防止中断处理程序与非中断代码之间互相干扰。xv6 为这两种情况使用了相同的低层概念：<em>锁</em>。锁提供了互斥功能，保证某个时间点只有一个 CPU 能持有锁。如果 xv6 只能在持有特定的锁时才能使用数据结构，那么就能保证只有一时间只有一个 CPU 能使用数据结构。这样，我们就称这个锁保护了数据结构。</p>
+<p>本章的其余部分将解释为何 xv6 需要锁，以及 xv6 是如何实现、使用锁的。我们需要重点注意的是在读代码时，你一定要问自己另一个处理器的存在是否会让这行代码无法达到期望的运行结果（因为另一个处理器也可能正在运行该行代码，或者另一行修改这个共享变量的代码），还要考虑如果这里执行一个中断处理程序，又会发生什么情况。与此同时，一定要记住一行 C 代码可能由多条机器指令组成，而另一个处理器或者中断可能在这些指令中间影响之。你不能假设这些代码是顺序执行的，也不能假设一个 C 指令是以原子操作执行的。并发使得考虑代码的正确性变得困难。</p>
+<h4 id="-">竞争条件</h4>
+<p>下面举一个例子说明为什么我们需要锁，考虑几个共享磁盘的处理器，例如 xv6 中的 IDE 磁盘。磁盘驱动会维护一个未完成磁盘请求的链表（3821），这样处理器可能会并发地向链表中加入新的请求（3954）。如果没有并发请求，你可以这样实现：</p>
+<pre><code class="lang-C"><span class="hljs-keyword">struct</span> <span class="hljs-built_in">list</span>{
+    <span class="hljs-keyword">int</span> data;
+    <span class="hljs-keyword">struct</span> <span class="hljs-built_in">list</span> *next;
+};
+
+<span class="hljs-keyword">struct</span> <span class="hljs-built_in">list</span> *<span class="hljs-built_in">list</span> = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">void</span>
+insert(<span class="hljs-keyword">int</span> data)
+{
+    <span class="hljs-keyword">struct</span> <span class="hljs-built_in">list</span> *l;
+    l = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span> *l);
+    l-&gt;data = data;
+    l-&gt;next = <span class="hljs-built_in">list</span>;
+    <span class="hljs-built_in">list</span> = l;
+}
+</code></pre>
+<p>证明其正确性是数据结构与算法课中的练习。即使可以证明其正确性，实际上这种实现也是错误的，至少不能在多处理器上运行。如果两个不同的 CPU 同时执行 <code>insert</code>，可能会两者都运行到15行，而都未开始运行16行（见图表4-1）。这样的话，就会出现两个链表节点，并且 <code>next</code> 都被设置为 <code>list</code>。当两者都运行了16行的赋值后，后运行的一个会覆盖前运行的一个；于是先赋值的一个进程中添加的节点就丢失了。这种问题就被称为<em>竞争条件</em>。竞争问题在于它们的结果由 CPU 执行时间以及其内存操作的先后决定的，并且这个问题难以重现。例如，在调试 <code>insert</code> 时加入输出语句，就足以改变执行时间，使得竞争消失。</p>
+<p><img src="../pic/f4-1.png" alt="figure4-1">
+通常我们使用锁来避免竞争。锁提供了互斥，所以一时间只有一个 CPU 可以运行 <code>insert</code>；这就让上面的情况不可能发生。只需加入几行代码（未标号的）就能修改为正确的带锁代码：</p>
+<pre><code class="lang-C"><span class="hljs-keyword">struct</span> <span class="hljs-built_in">list</span> *<span class="hljs-built_in">list</span> = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">struct</span> lock listlock;
+
+<span class="hljs-keyword">void</span>
+insert(<span class="hljs-keyword">int</span> data)
+{
+    <span class="hljs-keyword">struct</span> <span class="hljs-built_in">list</span> *l;
+       acquire(&amp;listlock);
+    l = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span> *l);
+    l-&gt;data = data;
+    l-&gt;next = <span class="hljs-built_in">list</span>;
+    <span class="hljs-built_in">list</span> = l;
+       release(&amp;listlock);
+}
+</code></pre>
+<p>当我们说锁保护了数据时，是指锁保护了数据对应的一组不变量（invariant）。不变量是数据结构在操作中维护的一些状态。一般来说，操作的正确行为会取决于不变量是否为真。操作是有可能暂时破坏不变量的，但在结束操作之前必须恢复不变量。例如，在链表中，不变量即 <code>list</code> 指向链表中第一个节点，而每个节点的 <code>next</code> 指向下一个节点。<code>insert</code> 的实现就暂时破坏了不变量：第13行建立一个新链表元素 <code>l</code>，并认为 <code>l</code> 是链表中的第一个节点，但 <code>l</code> 的 <code>next</code> 还没有指向下一个节点（在第15行恢复了该不变量），而 <code>list</code> 也还没有指向 <code>l</code>（在第16行恢复了该不变量）。上面所说的竞争之所以发生，是因为可能有另一个 CPU 在这些不变量（暂时）没有被恢复的时刻运行了依赖于不变量的代码。恰当地使用锁就能保证一时间只有一个 CPU 操作数据结构，这样在不变量不正确时就不可能有其他 CPU 对数据结构进行操作了。</p>
+<h4 id="-">代码：锁</h4>
+<p>xv6 用结构体 <code>struct spinlock</code>（1401）。结构体中的临界区用 <code>locked</code> 表示。这是一个字，在锁可以被获得时值为0，而当锁已经被获得时值为非零。逻辑上讲，xv6 应该用下面的代码来获得锁：</p>
+<pre><code class="lang-C"><span class="hljs-keyword">void</span>
+acquire(<span class="hljs-keyword">struct</span> spinlock *lk)
+{
+    <span class="hljs-keyword">for</span>(;;) {
+        <span class="hljs-keyword">if</span>(!lk-&gt;locked) {
+            lk-&gt;locked = <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">break</span>;
+        }
+    }
+}
+</code></pre>
+<p>然而这段代码在现代处理器上并不能保证互斥。有可能两个（或多个）CPU 接连执行到第25行，发现 <code>lk-&gt;locked</code> 为0，然后都执行第26、27行拿到了锁。这时，两个不同的 CPU 持有锁，违反了互斥。这段代码不仅不能帮我们避免竞争条件，它本身就存在竞争。这里的问题主要出在第25、26行是分开执行的。若要保证代码的正确，就必须让第25、26行是原子操作的。</p>
+<p>为了让这两行变为原子操作， xv6 采用了386硬件上的一条特殊指令 <code>xchg</code>（0569）。在这个原子操作中，<code>xchg</code> 交换了内存中的一个字和一个寄存器的值。函数 <code>acquire</code>（1474）在循环中反复使用 <code>xchg</code>；每一次都读取 <code>lk-&gt;locked</code> 然后设置为1（1483）。如果锁已经被持有了，<code>lk-&gt;locked</code> 就已经为1了，故 <code>xchg</code> 会返回1然后继续循环。如果 <code>xchg</code> 返回0，但是 <code>acquire</code> 已经成功获得了锁，即 <code>locked</code> 已经从0变为了1，这时循环可以停止了。一旦锁被获得了，<code>acquire</code> 会记录获得锁的 CPU 和栈信息，以便调试。当某个进程获得了锁却没有释放时，这些信息可以帮我们找到问题所在。当然这些信息也被锁保护着，只有在持有锁时才能修改。</p>
+<p>函数 <code>release</code>（1502）则做了相反的事：清除调试信息并释放锁。</p>
+<h4 id="-">模块化与递归锁</h4>
+<p>系统设计力求简单、模块化的抽象：最好是让调用者不需要了解被调者的具体实现。锁的机制则和这种模块化理念有所冲突。例如，当 CPU 持有锁时，它不能再调用另一个试图获得该锁的函数 <code>f</code>：因为调用者在 <code>f</code> 返回之前无法释放锁，如果 <code>f</code> 试图获得这个锁，就会造成死锁。</p>
+<p>现在还没有一种透明方案可以让调用者和被调者可以互相隐藏所使用的锁。我们可以使用<em>递归锁（recursive locks）</em>使得被调者能够在此获得调用者已经持有的锁，这种方案虽然是透明通用的，但是十分繁复。还有一个问题就是这种方案不能用来保护不变量。在 <code>insert</code> 调用 <code>acquire(&amp;listlock)</code>后，它就可以假设没有其他函数会持有这个锁，也没有其他函数可以操作链表，最重要的是，可以保持链表相关的所有不变量。 在使用递归锁的系统中，<code>insert</code> 可以假设在它之后 <code>acquire</code> 不会再被调用：<code>acquire</code> 之所以能成功，只可能是 <code>insert</code> 的调用者持有锁，并正在修改链表数据。这时的不变量有可能被破坏了，链表也就不再保护其不变量了。锁不仅要让不同的 CPU 不会互相干扰，还需要让调用者与被调者不会互相干扰；而递归锁就无法保证这一点。</p>
+<p>由于没有理想、透明的解决方法，我们不得不在函数的使用规范中加入锁。编程者必须保证一个函数不会再持有锁时调用另一个需要获得该锁的函数 <code>f</code>。就这样，锁也成为了我们的抽象中的一员。</p>
+<h4 id="-">代码：使用锁</h4>
+<p>xv6 非常谨慎地使用锁来避免竞争条件。一个简单的例子就是 IDE 驱动（3800）。就像本章开篇提到的一样，<code>iderw</code>（3954）有一个磁盘请求的队列，处理器可能会并发地向队列中加入新请求（3969）。为了保护链表以及驱动中的其他不变量，<code>iderw</code> 会请求获得锁 <code>idelock</code>（3965）并在函数末尾释放锁。练习1中研究了如何通过把 <code>acquire</code> 移动到队列操作之后来触发竞争条件。我们很有必要做一个这些练习，它们会让我们了解到想要触发竞争并不容易，也就是说很难找到竞争条件。并不是说 xv6 的代码中就没有竞争。</p>
+<p>使用锁的一个难点在于要决定使用多少个锁，以及每个锁保护哪些数据、不变量。不过有几个基本原则。首先，当一个 CPU 正在写一个变量，而同时另一个 CPU 可能读/写该变量时，需要用锁防止两个操作重叠。第二，当用锁保护不变量时，如果不变量涉及到多个数据结构，通常每个数据结构都需要用一个单独的锁保护起来，这样才能维持不变量。</p>
+<p>上面只说了需要锁的原则，那么什么时候不需要锁呢？由于锁会降低并发度，所以我们一定要避免过度使用锁。当效率不是很重要的时候，完全可以使用单处理器计算机，这样就完全不用考虑锁了。当我们要保护内核的数据结构时，使用一个内核锁还是值得的，当进入内核时必须持有该锁，而退出内核时就释放该锁。许多单处理器操作系统就用这种方法运行在了多处理器上，有时这种方法被称为“内核巨锁（giant kernel lock）”，但使用这种方法就牺牲了并发性：即一时间只有一个 CPU 可以运行在内核上。如果我们想要依靠内核做大量的计算，那么使用一组更为精细的锁来让内核可以在多个 CPU 上轮流运行会更有效率。</p>
+<p>最后，对于锁的粒度选择是并行编程中的一个重要问题。xv6 只使用了几个简单的锁；例如，xv6 中使用了一个单独的锁来保护进程表及其不变量，我们将在第5章讨论这个问题。更精细的做法是给进程表中的每一个条目都上一个锁，这样在不同条目上运行的线程也能并行了。但是在进程表中维护那么多个不变量就必须使用多个锁，这就让情况变得很复杂了。不过 xv6 中的例子已经足够让我们了解如何使用锁了。</p>
+<h4 id="-">锁的顺序</h4>
+<p>如果一段代码要使用多个锁，那么必须要注意代码每次运行都要以相同的顺序获得锁，否则就有死锁的危险。假设某段代码的两条执行路径都需要锁 A 和 B，但路径1获得锁的顺序是 A、B，而路径2获得锁的顺序是 B、A。这样就有能路径获得了锁 A，而在它继续获得锁 B 之前，路径2获得了锁 B，这样就死锁了。这时两个路径都无法继续执行下去了，因为这时路径1需要锁 B，但锁 B已经在路径2手中了，反之路径2也得不到锁 A。为了避免这种死锁，所有的代码路径获得锁的顺序必须相同。避免死锁也是我们把锁作为函数使用规范的一部分的原因：调用者必须以固定顺序调用函数，这样函数才能以相同顺序获得锁。</p>
+<p>由于 xv6 本身比较简单，它使用的锁也很简单，所以 xv6 几乎没有锁的使用链。最长的锁链也就只有两个锁。例如，<code>ideintr</code> 在调用 <code>wakeup</code> 时持有 ide 锁，而 <code>wakeup</code> 又需要获得 <code>ptable.lock</code>。还有很多使用 <code>sleep</code>/<code>wakeup</code> 的例子，它们要考虑锁的顺序是因为 <code>sleep</code> 和 <code>wakeup</code> 中有比较复杂的不变量，我们会在第5章讨论。文件系统中有很多两个锁的例子，例如文件系统在删除一个文件时必须持有该文件及其所在文件夹的锁。xv6 总是首先获得文件夹的锁，然后再获得文件的锁。</p>
+<h4 id="-">中断处理程序</h4>
+<p>xv6 用锁来防止中断处理程序与另一个 CPU 上运行非中断代码使用同一个数据。例如，时钟中断（3114）会增加 <code>ticks</code> 但可能有另一个 CPU 正在运行 <code>sys_sleep</code>，其中也要使用该变量（3473）。锁 <code>tickslock</code> 就能够为该变量实现同步。</p>
+<p>即使在单个处理器上，中断也可能导致并发：在允许中断时，内核代码可能在任何时候停下来，然后执行中断处理程序。假设 <code>iderw</code> 持有 <code>idelock</code>，然后中断发生，开始运行 <code>ideintr</code>。<code>ideintr</code> 会试图获得 <code>idelock</code>，但却发现 <code>idelock</code> 已经被获得了，于是就等着它被释放。这样，<code>idelock</code> 就永远不会被释放了，只有 <code>iderw</code> 能释放它，但又只有让 <code>ideintr</code> 返回 <code>iderw</code> 才能继续运行，这样处理器、整个系统都会死锁。</p>
+<p>为了避免这种情况，当中断处理程序会使用某个锁时，处理器就不能在允许中断发生时持有锁。xv6 做得更决绝：允许中断时不能持有任何锁。它使用 <code>pushcli</code>（1555）和 <code>popcli</code>（1566）来屏蔽中断（<code>cli</code> 是 x86 屏蔽中断的指令）。<code>acquire</code> 在尝试获得锁之前调用了 <code>pushcli</code>（1476），<code>release</code> 则在释放锁后调用了 <code>popcli</code>（1521）。<code>pushcli</code>（1555）和 <code>popcli</code>（1566）不仅包装了 <code>cli</code> 和 <code>sti</code>，它们还做了计数工作，这样就需要调用两次 <code>popcli</code> 来抵消两次 <code>pushcli</code>；这样，如果代码中获得了两个锁，那么只有当两个锁都被释放后中断才会被允许。</p>
+<p><code>acquire</code> 一定要在可能获得锁的 <code>xchg</code> 之前调用 <code>pushcli</code>（1483）。如果两者颠倒了，就可能在几个时钟周期里，中断仍被允许，而锁也被获得了，如果此时不幸地发生了中断，系统就会死锁。类似的，<code>release</code> 也一定要在释放锁的 <code>xchg</code> 之后调用 <code>popcli</code>（1483）。</p>
+<p>另外，中断处理程序和非中断代码对彼此的影响也让我们看到了递归锁的缺陷。如果 xv6 使用了递归锁（即如果 CPU 获得了某个锁，那么同一 CPU 上可以再次获得该锁），那么中断处理程序就可能在非中断代码正运行到临界区时运行，这样就非常混乱了。当中断处理程序运行时，它所依赖的不变量可能暂时被破坏了。例如，<code>ideintr</code>（3902）会假设未处理请求链表是完好的。若 xv6 使用了递归锁，<code>ideintr</code> 就可能在 <code>iderw</code> 正在修改链表，这样 <code>ideintr</code> 就会使用这个不正确的链表。</p>
+<h4 id="-">内存乱序</h4>
+<p>在本章中，我们都假设了处理器会按照代码中的顺序执行指令。但是许多处理器会通过指令乱序来提高性能。如果一个指令需要多个周期完成，处理器会希望这条指令尽早开始执行，这样就能与其他指令交叠，避免延误太久。例如，处理器可能会发现一系列 A、B 指令序列彼此并没有关系，在 A 之前执行 B 可以让处理器执行完 A 时也执行完 B。但是并发可能会让这种乱序行为暴露到软件中，导致不正确的结果。</p>
+<p>例如，考虑在 <code>release</code> 中把0赋给 <code>lk-&gt;locked</code> 而不是使用 <code>xchg</code>。那么结果就不明确了，因为我们难以保证这里的执行顺序。比方说如果 <code>lk-&gt;locked=0</code> 在乱序后被放到了 <code>popcli</code> 之后，可能在锁被释放之前，另一个线程中就允许中断了，<code>acquire</code> 就会被打断。为了避免乱序可能造成的不确定性，xv6 决定使用稳妥的 <code>xchg</code>，这样就能保证不出现乱序了。</p>
+<h4 id="-">现实情况</h4>
+<p>由于使用了锁机制的程序编写仍然是个巨大的挑战，所以并发和并行至今还是研究的热点。我们最好以锁为基础来构建高级的同步队列，虽然 xv6 并没有这么做。如果你使用锁进行编程，那么你最好用一些工具来确定竞争条件，否则很容易遗漏掉某些需要锁保护的不变量。</p>
+<p>用户级程序也需要锁，但 xv6 的程序只有一个运行线程，进程间也不会共享内存，所以就不需要锁了。</p>
+<p>当然我们也有可能用非原子性的操作来实现锁，只不过那非常复杂，而且大多数的操作系统都是使用了原子操作的。</p>
+<p>原子操作的代价也不小。如果一个处理器在缓存中有一个锁，而这时另一个处理器必须获得该锁，那么更新缓存中该行的原子操作酒必须把这行从一个处理器的缓存中移到另一个处理器的缓存中，同时还可能让这行缓存的其他备份失效。从其他处理器的缓存中取得一行数据要比从本地缓存中取代价大得多。</p>
+<p>为了减少使用锁所产生的代价，许多操作系统使用了锁无关的数据结构和算法，并在这些算法中尽量避免原子操作。例如，对于本章开篇提到的链表，我们在查询时不需要获得锁，然后用一个原子操作来添加元素。</p>
+<h4 id="-">练习</h4>
+<ol>
+<li><p>若在 <code>acquire</code> 中不用 <code>xchg</code>，运行 xv6 会发生什么情况？</p>
+</li>
+<li><p>把 <code>iderw</code> 中的 <code>acquire</code> 移到 <code>sleep</code> 之前会出现竞争吗？你可以通过运行 xv6 并运行 <code>stressfs</code> 来观察。用简单的循环扩大临界区看看会发生什么，并对此作出解释。</p>
+</li>
+<li><p>完成公布的作业。</p>
+</li>
+<li><p>在缓冲区的 <code>flags</code> 中置位并不是原子操作：处理器会在寄存器中拷贝一份 <code>flags</code>，修改寄存器然后写回去。所以两个处理器不能同时写 <code>flags</code>。xv6 只在持有 <code>buflock</code> 的时候修改 <code>B_BUSY</code>，但修改 <code>B_VALID</code> 和 <code>B_WRITE</code> 的时候并没有锁。为什么这么做仍然是安全的呢？</p>
+</li>
+</ol>
+
+                    
+                    </section>
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../content/chapter3.html" class="navigation navigation-prev " aria-label="Previous page: 第三章 陷入，中断和驱动程序"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../content/chapter5.html" class="navigation navigation-next " aria-label="Next page: 第五章 调度"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/jsrepl/jsrepl.js" id="jsrepl-script"></script>
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-mathjax/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
