@@ -32,6 +32,6 @@ xv6 是 MIT 开发的一个教学用的完整的类 Unix 操作系统，并且�
 |附A |+ |+ | |
 |附B |+ |+ | |
 
-## 许可证（Liscence）
+## 许可证（License）
 
 文档中涉及到的 xv6 源代码使用 [MIT](http://www.opensource.org/licenses/mit-license.php)许可证。中文翻译使用 [WTFPL](http://en.wikipedia.org/wiki/WTFPL)许可证，在 WTFPL 之上，转载和引用请注明本项目 Github 地址。
