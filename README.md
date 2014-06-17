@@ -7,8 +7,7 @@ xv6 是 MIT 开发的一个教学用的完整的类 Unix 操作系统，并且�
 
 [文中引用的 xv6 源代码](http://pdos.csail.mit.edu/6.828/2012/xv6/xv6-rev7.pdf)
 
-译者
-===
+## 译者
 
 鲜染 北京大学 信息科学技术学院 计算机系
 
@@ -17,8 +16,7 @@ xv6 是 MIT 开发的一个教学用的完整的类 Unix 操作系统，并且�
 *如果你愿意贡献，你的名字也会出现在这里！*
 
 
-翻译状况
-===
+## 翻译状况
 
 |章节|初稿|审校|二审
 |----|----|----|----|
@@ -34,6 +32,6 @@ xv6 是 MIT 开发的一个教学用的完整的类 Unix 操作系统，并且�
 |附A |+ |+ | |
 |附B |+ |+ | |
 
-许可证（Liscence）
-===
-文档中涉及到的 xv6 源代码使用 [MIT](http://www.opensource.org/licenses/mit-license.php)许可证。中文翻译使用 [WTFPL](http://en.wikipedia.org/wiki/WTFPL)，在 WTFPL 之上，转载和引用请注明本项目 Github 地址。
+## 许可证（Liscence）
+
+文档中涉及到的 xv6 源代码使用 [MIT](http://www.opensource.org/licenses/mit-license.php)许可证。中文翻译使用 [WTFPL](http://en.wikipedia.org/wiki/WTFPL)许可证，在 WTFPL 之上，转载和引用请注明本项目 Github 地址。
