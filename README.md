@@ -3,6 +3,8 @@ xv6-chinese
 
 xv6 是 MIT 开发的一个教学用的完整的类 Unix 操作系统，并且在 MIT 的操作系统课程 [6.828](http://pdos.csail.mit.edu/6.828/2012/xv6.html) 中使用。通过阅读并理解 xv6 的代码，可以清楚地了解操作系统中众多核心的概念，对操作系统感兴趣的同学十分推荐一读！这份文档是中文翻译的 MIT xv6 文档，是阅读代码过程中非常好的参考资料。
 
+同时，本文档也可以通过电子书的方式访问，地址是 http://th0ar.github.io/xv6-chinese/ ，电子书是由 [Gitbook](https://www.gitbook.io/) 生成的。
+
 [原文在此](http://pdos.csail.mit.edu/6.828/2012/xv6/book-rev7.pdf)
 
 [文中引用的 xv6 源代码](http://pdos.csail.mit.edu/6.828/2012/xv6/xv6-rev7.pdf)
