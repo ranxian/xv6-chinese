@@ -232,12 +232,12 @@ xv6有两种不同的文件实现方式：管道和 i 节点。现代的UNIX系�
 
 2.为什么在 `ialloc` 中会 `panic` ? 我们能恢复吗？
 
-3. i 节点产生编号
+3.i 节点产生编号
 
 4.为什么当 `filealloc` 用完文件的时候不会 `panic`？为什么这是很普通但是值得处理的？
 
 5.假设 `ip` 对应的文件在 `sys_link` 调用到 `iunlock(ip)` 和 `dirlink` 时被另一个进程去除对应的联系，这个联系还会被正确的创建吗？并说明原因。
 
-6. `create` 有四个函数调用（其中一个是调用到 `ialloc`, 其他三个调用到 `dirlink` ）需要成功创建。如果不能，`create` c产生 `panic` 。为什么这是可取的？为什么这四个调用中的任意一个都不会失败？
+6.`create` 有四个函数调用（其中一个是调用到 `ialloc`, 其他三个调用到 `dirlink` ）需要成功创建。如果不能，`create` c产生 `panic` 。为什么这是可取的？为什么这四个调用中的任意一个都不会失败？
 
-7. `sys_chdir` 在调用 `iput(cp->cwd)` 之前调用 `iunlock(ip)`，这个过程可能会锁住 `cp->cwd`，然而推迟 `iunlock(ip)` 调用直到`iput`调用结束，将不会造成死锁，为什么不会？
+7.`sys_chdir` 在调用 `iput(cp->cwd)` 之前调用 `iunlock(ip)`，这个过程可能会锁住 `cp->cwd`，然而推迟 `iunlock(ip)` 调用直到`iput`调用结束，将不会造成死锁，为什么不会？
