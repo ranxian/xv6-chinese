@@ -7,7 +7,7 @@ xv6 是 MIT 开发的一个教学用的完整的类 Unix 操作系统，并且�
 
 [文中引用的 xv6 源代码](http://pdos.csail.mit.edu/6.828/2012/xv6/xv6-rev7.pdf)
 
-强烈推荐 xv6 源代码同本书一同阅读！
+强烈推荐 xv6 源代码同本书一同阅读！同时，我们的翻译文档也可以通过 [gitbook](https://www.gitbook.io/book/th0ar/xv6-chinese) 阅读
 
 ## 译者
 
