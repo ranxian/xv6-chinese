@@ -100,6 +100,7 @@
 |pipe | 管道|
 |pre-arranged | 预定义|
 |previlege level | 特权级 |
+|PC-relative direct jump | PC 相关的直接跳转 |
 
 ##q
 
