@@ -126,6 +126,7 @@
 |------|------|
 |thundering herd | 惊群|
 |time-sharing | 分时|
+|task state segment | 任务状态段 |
 
 ##u
 
