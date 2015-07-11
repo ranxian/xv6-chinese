@@ -11,22 +11,23 @@ xv6 运行在多处理器上，即计算机上有多个单独执行代码的 CPU
 下面举一个例子说明为什么我们需要锁，考虑几个共享磁盘的处理器，例如 xv6 中的 IDE 磁盘。磁盘驱动会维护一个未完成磁盘请求的链表（3821），这样处理器可能会并发地向链表中加入新的请求（3954）。如果没有并发请求，你可以这样实现：
 
 ~~~ C
-struct list{
-    int data;
-    struct list *next;
-};
-
-struct list *list = 0;
-
-void
-insert(int data)
-{
-    struct list *l;
-    l = malloc(sizeof *l);
-    l->data = data;
-    l->next = list;
-    list = l;
-}
+1   struct list{
+2       int data;
+3       struct list *next;
+4   };
+5
+6   struct list *list = 0;
+7
+8   void
+9   insert(int data)
+10  {
+11      struct list *l;
+12
+13      l = malloc(sizeof *l);
+14      l->data = data;
+15      l->next = list;
+16      list = l;
+17  }
 ~~~
 
 证明其正确性是数据结构与算法课中的练习。即使可以证明其正确性，实际上这种实现也是错误的，至少不能在多处理器上运行。如果两个不同的 CPU 同时执行 `insert`，可能会两者都运行到15行，而都未开始运行16行（见图表4-1）。这样的话，就会出现两个链表节点，并且 `next` 都被设置为 `list`。当两者都运行了16行的赋值后，后运行的一个会覆盖前运行的一个；于是先赋值的一个进程中添加的节点就丢失了。这种问题就被称为*竞争条件*。竞争问题在于它们的结果由 CPU 执行时间以及其内存操作的先后决定的，并且这个问题难以重现。例如，在调试 `insert` 时加入输出语句，就足以改变执行时间，使得竞争消失。
@@ -35,20 +36,21 @@ insert(int data)
 通常我们使用锁来避免竞争。锁提供了互斥，所以一时间只有一个 CPU 可以运行 `insert`；这就让上面的情况不可能发生。只需加入几行代码（未标号的）就能修改为正确的带锁代码：
 
 ~~~ C
-struct list *list = 0;
-struct lock listlock;
-
-void
-insert(int data)
-{
-    struct list *l;
-       acquire(&listlock);
-    l = malloc(sizeof *l);
-    l->data = data;
-    l->next = list;
-    list = l;
-       release(&listlock);
-}
+6   struct list *list = 0;
+    struct lock listlock;
+7   
+8   void
+9   insert(int data)
+10  {
+11      struct list *l;
+12
+           acquire(&listlock);
+13      l = malloc(sizeof *l);
+14      l->data = data;
+15      l->next = list;
+16      list = l;
+           release(&listlock);
+17  }
 ~~~
 
 当我们说锁保护了数据时，是指锁保护了数据对应的一组不变量（invariant）。不变量是数据结构在操作中维护的一些状态。一般来说，操作的正确行为会取决于不变量是否为真。操作是有可能暂时破坏不变量的，但在结束操作之前必须恢复不变量。例如，在链表中，不变量即 `list` 指向链表中第一个节点，而每个节点的 `next` 指向下一个节点。`insert` 的实现就暂时破坏了不变量：第13行建立一个新链表元素 `l`，并认为 `l` 是链表中的第一个节点，但 `l` 的 `next` 还没有指向下一个节点（在第15行恢复了该不变量），而 `list` 也还没有指向 `l`（在第16行恢复了该不变量）。上面所说的竞争之所以发生，是因为可能有另一个 CPU 在这些不变量（暂时）没有被恢复的时刻运行了依赖于不变量的代码。恰当地使用锁就能保证一时间只有一个 CPU 操作数据结构，这样在不变量不正确时就不可能有其他 CPU 对数据结构进行操作了。
@@ -58,16 +60,16 @@ insert(int data)
 xv6 用结构体 `struct spinlock`（1401）。该结构体中的关键成员是 `locked` 。这是一个字，在锁可以被获得时值为0，而当锁已经被获得时值为非零。逻辑上讲，xv6 应该用下面的代码来获得锁：
 
 ~~~ C
-void
-acquire(struct spinlock *lk)
-{
-    for(;;) {
-        if(!lk->locked) {
-            lk->locked = 1;
-            break;
-        }
-    }
-}
+21  void
+22  acquire(struct spinlock *lk)
+23  {
+24      for(;;) {
+25          if(!lk->locked) {
+26              lk->locked = 1;
+27              break;
+28          }
+29      }
+30  }
 ~~~
 
 然而这段代码在现代处理器上并不能保证互斥。有可能两个（或多个）CPU 接连执行到第25行，发现 `lk->locked` 为0，然后都执行第26、27行拿到了锁。这时，两个不同的 CPU 持有锁，违反了互斥。这段代码不仅不能帮我们避免竞争条件，它本身就存在竞争。这里的问题主要出在第25、26行是分开执行的。若要保证代码的正确，就必须让第25、26行成为一个原子操作。
