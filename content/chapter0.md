@@ -170,7 +170,7 @@ if(fork() == 0) {
 
 ~~~ C
 fd = dup(1);
-write(1, "hello", 6);
+write(1, "hello ", 6);
 write(fd, "world\n", 6);
 ~~~
 
