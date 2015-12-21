@@ -10,6 +10,8 @@ Robert Morris
 
 xv6-book@pdos.csail.mit.edu
 
+起草于2014年9月3日
+
 翻译：
 
 鲜染
@@ -20,4 +22,4 @@ xianran@pku.edu.cn
 
 zhaoty.ting@gmail.com
 
-2013年国庆
+2015年12月
