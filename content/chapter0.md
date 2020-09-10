@@ -237,7 +237,7 @@ open("/a/b/c", O_RDONLY);
 
 ~~~ C
 mkdir("/dir");
-fd = open("/dir/file", O_CREATE|O_WRONGLY);
+fd = open("/dir/file", O_CREATE|O_WRONLY);
 close(fd);
 mknod("/console", 1, 1);
 ~~~
@@ -265,7 +265,7 @@ mknod("/console", 1, 1);
 文件名和这个文件本身是有很大的区别。同一个文件（称为 `inode`）可能有多个名字，称为**连接** (`links`)。系统调用 `link` 创建另一个文件系统的名称，它指向同一个 `inode`。下面的代码创建了一个既叫做 `a` 又叫做 `b` 的新文件。
 
 ~~~ C
-open("a", O_CREATE|O_WRONGLY);
+open("a", O_CREATE|O_WRONLY);
 link("a", "b");
 ~~~
 
