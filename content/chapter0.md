@@ -57,7 +57,7 @@ pid = fork();
 if(pid > 0){
     printf("parent: child=%d\n", pid);
     pid = wait();
-    printf("child %d is done\n", pid);
+    printf("parent: child %d is done\n", pid);
 } else if(pid == 0){
     printf("child: exiting\n");
     exit();
